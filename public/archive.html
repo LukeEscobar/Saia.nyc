@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Archive — Garments</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+  <img src="/images/saia-logo.png" class="logo" alt="Saia logo" />
+  <nav>
+    <form action="/logout" method="get" style="display:inline;">
+      <button type="submit" class="btn btn-logout">Log out</button>
+    </form>
+  </nav>
+</header>
+  <main class="container">
+    <section id="list" class="grid"></section>
+  </main>
+  <script>
+    // For demo, add a second image for each garment by swapping 'sample' with another image if available
+    function getAltImage(g) {
+      const altMap = {
+        "/images/sample-jacket.jpg": "/images/trenchcoat-sample.jpg",
+        "/images/experimental-coat.png": "/images/sample-woolsweater.jpg",
+        "/images/trenchcoat-sample.jpg": "/images/denimshirt-sample.jpg",
+        "/images/denimshirt-sample.jpg": "/images/sample-corduroypants.jpg",
+        "/images/sample-woolsweater.jpg": "/images/sample-silkblouse.jpg",
+        "/images/sample-corduroypants.jpg": "/images/sample-puffervest.jpg",
+        "/images/sample-silkblouse.jpg": "/images/sample-jacket.jpg",
+        "/images/sample-puffervest.jpg": "/images/experimental-coat.png"
+      };
+      return altMap[g.image] || g.image;
+    }
+
+    async function load() {
+      try {
+        const res = await fetch('/api/garments');
+        if (!res.ok) throw new Error('failed');
+        const data = await res.json();
+        const container = document.getElementById('list');
+        if (!data.length) {
+          container.innerHTML = '<p>No garments available.</p>';
+          return;
+        }
+        container.innerHTML = data.map((g, idx) => {
+          const altImage = getAltImage(g);
+          const carouselId = `carousel-${idx}`;
+          return `
+            <article class="card">
+              <div style="position:relative;">
+                <img src="${g.image}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
+              </div>
+              <h3>${g.title}</h3>
+              <p class="meta">Size: ${g.size || '-'} • Condition: ${g.condition || 'N/A'}</p>
+            </article>
+          `;
+        }).join('');
+
+        // Hover logic for each card
+        data.forEach((g, idx) => {
+          const carouselId = `carousel-${idx}`;
+          const el = document.getElementById(carouselId);
+          const altImage = getAltImage(g);
+          if (el) {
+            el.addEventListener('mouseenter', () => {
+              el.src = altImage;
+            });
+            el.addEventListener('mouseleave', () => {
+              el.src = g.image;
+            });
+          }
+        });
+      } catch (e) {
+        document.getElementById('list').innerHTML = '<p>Unable to load garments.</p>';
+      }
+    }
+    load();
+  </script>
+</body>
+</html>

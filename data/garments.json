@@ -1,0 +1,66 @@
+[
+  {
+    "id": "g1",
+    "title": "Sample Jacket",
+    "size": "M",
+    "condition": "Very good",
+    "description": "Wool jacket, limited release.",
+    "image": "/images/sample-jacket.jpg"
+  },
+  {
+    "id": "g2",
+    "title": "Experimental Coat",
+    "size": "L",
+    "condition": "New",
+    "description": "Hand-finished coat, experimental weave.",
+    "image": "/images/experimental-coat.png"
+  },
+  {
+    "id": "g3",
+    "title": "Classic Trench",
+    "size": "M",
+    "condition": "Excellent",
+    "description": "Timeless beige trench coat.",
+    "image": "/images/trenchcoat-sample.jpg"
+  },
+  {
+    "id": "g4",
+    "title": "Denim Shirt",
+    "size": "S",
+    "condition": "Good",
+    "description": "Light-wash denim, relaxed fit.",
+    "image": "/images/denimshirt-sample.jpg"
+  },
+  {
+    "id": "g5",
+    "title": "Wool Sweater",
+    "size": "L",
+    "condition": "Very good",
+    "description": "Soft wool, navy blue.",
+    "image": "/images/sample-woolsweater.jpg"
+  },
+  {
+    "id": "g6",
+    "title": "Corduroy Pants",
+    "size": "M",
+    "condition": "New",
+    "description": "Brown corduroy, straight leg.",
+    "image": "/images/sample-corduroypants.jpg"
+  },
+  {
+    "id": "g7",
+    "title": "Silk Blouse",
+    "size": "S",
+    "condition": "Excellent",
+    "description": "Ivory silk, button-up.",
+    "image": "/images/sample-silkblouse.jpg"
+  },
+  {
+    "id": "g8",
+    "title": "Puffer Vest",
+    "size": "L",
+    "condition": "Good",
+    "description": "Black puffer, lightweight.",
+    "image": "/images/sample-puffervest.jpg"
+  }
+]
