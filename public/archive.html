@@ -8,17 +8,19 @@
   <link rel="icon" type="image/png" href="/images/saia-tab.png" />
 </head>
 <body class="archive-bg">
-  <form action="/logout" method="get" class="logout-top-right">
-    <button type="submit" class="btn btn-logout">Log out</button>
-  </form>
-  <header class="site-header">
-    <img src="/images/saia-logo.png" class="logo archive-logo" alt="Saia logo" />
-  </header>
-  <main class="container">
+  <nav class="archive-navbar">
+    <img src="/images/saia-logo.png" alt="Saia logo" style="height:140px; width:auto; margin-left:-40px;">
+    <span class="navbar-title" style="font-size:2.2rem;font-weight:700;letter-spacing:0.12em;margin-left:32px;">ARCHIVE</span>
+    <div class="navbar-actions">
+      <form action="/logout" method="get">
+        <button type="submit" class="btn btn-logout">Log out</button>
+      </form>
+    </div>
+  </nav>
+  <main class="archive-container">
     <section id="list" class="grid"></section>
   </main>
   <script>
-    // For demo, add a second image for each garment by swapping 'sample' with another image if available
     function getAltImage(g) {
       const altMap = {
         "/images/sample-jacket.jpg": "/images/trenchcoat-sample.jpg",
@@ -48,11 +50,12 @@
           const carouselId = `carousel-${idx}`;
           return `
             <article class="card">
-              <div style="position:relative;">
-                <img src="${g.image}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
-              </div>
+              <img src="${g.image}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
               <h3>${g.title}</h3>
-              <p class="meta">Size: ${g.size || '-'} • Condition: ${g.condition || 'N/A'}</p>
+              <div class="meta">${
+                g.size ? `Size: ${g.size}` : ''
+              }${g.size && g.condition ? ' • ' : ''}${g.condition ? `Condition: ${g.condition}` : ''}</div>
+              <div class="desc">${g.description || ''}</div>
             </article>
           `;
         }).join('');

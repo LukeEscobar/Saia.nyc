@@ -62,5 +62,69 @@
     "condition": "Good",
     "description": "Black puffer, lightweight.",
     "image": "/images/sample-puffervest.jpg"
+  },
+  {
+    "id": "g9",
+    "title": "Vintage Jacket",
+    "size": "M",
+    "condition": "Good",
+    "description": "Retro style, classic fit.",
+    "image": "/images/sample-jacket.jpg"
+  },
+  {
+    "id": "g10",
+    "title": "Modern Coat",
+    "size": "L",
+    "condition": "New",
+    "description": "Minimalist design, warm lining.",
+    "image": "/images/experimental-coat.png"
+  },
+  {
+    "id": "g11",
+    "title": "Rain Trench",
+    "size": "M",
+    "condition": "Excellent",
+    "description": "Waterproof, stylish.",
+    "image": "/images/trenchcoat-sample.jpg"
+  },
+  {
+    "id": "g12",
+    "title": "Chambray Shirt",
+    "size": "S",
+    "condition": "Good",
+    "description": "Soft chambray, casual.",
+    "image": "/images/denimshirt-sample.jpg"
+  },
+  {
+    "id": "g13",
+    "title": "Cashmere Sweater",
+    "size": "L",
+    "condition": "Very good",
+    "description": "Luxury cashmere, navy.",
+    "image": "/images/sample-woolsweater.jpg"
+  },
+  {
+    "id": "g14",
+    "title": "Slim Corduroy",
+    "size": "M",
+    "condition": "New",
+    "description": "Slim fit, brown corduroy.",
+    "image": "/images/sample-corduroypants.jpg"
+  },
+  {
+    "id": "g15",
+    "title": "Satin Blouse",
+    "size": "S",
+    "condition": "Excellent",
+    "description": "Smooth satin, ivory.",
+    "image": "/images/sample-silkblouse.jpg"
+  },
+  {
+    "id": "g16",
+    "title": "Down Vest",
+    "size": "L",
+    "condition": "Good",
+    "description": "Lightweight down, black.",
+    "image": "/images/sample-puffervest.jpg"
   }
 ]

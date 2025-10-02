@@ -16,7 +16,16 @@ body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;marg
 .btn{display:inline-block;padding:10px 16px;background:#111;color:#fff;text-decoration:none;border-radius:4px}
 .btn-large{padding:24px 38px;font-size:24px;border-radius:11px}
 .center-cta{display:flex;align-items:center;justify-content:center;flex:1;margin-top:-340px}
-.bio{color:#bebdbd}
+.bio{color:#bebdbd;text-align:center;margin-top:32px}
+.bio h3 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+}
+.bio p {
+  text-align: center;
+}
 .auth-form{display:flex;flex-direction:column;gap:12px}
 .auth-form input{padding:10px;font-size:16px}
 .grid {
@@ -163,9 +172,173 @@ body {
   position: relative;
 }
 body.archive-bg {
-  background: url('/images/ArchiveBackground1.png') no-repeat center center;
+  background: none;
+}
+
+.archive-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 48px 0 24px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.logo.archive-logo {
+  height: 120px;
+  width: auto;
+  margin-left: 32px;
+  margin-right: 32px;
+  position: static;
+}
+
+.archive-title {
+  font-size: 2.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #222;
+  text-shadow: 0 2px 16px rgba(255,255,255,0.18);
+  margin: 0;
+}
+
+.logout-top-right {
+  position: absolute;
+  top: 32px;
+  right: 48px;
+  z-index: 10;
+}
+
+.archive-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px 64px 24px;
+  background: rgba(255,255,255,0.82);
+  border-radius: 24px;
+  min-height: 70vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px 32px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+.card {
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.card img {
+  width: 100%;
+  height: 320px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 0;
+  margin-bottom: 18px;
+  transition: transform 0.2s;
+}
+
+.card:hover img {
+  transform: scale(1.04);
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #222;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.card .meta {
+  color: #222;
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.card .desc {
+  color: #888;
+  font-size: 0.98rem;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+/* Add to styles.css for archive page header bar */
+.archive-navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.archive-navbar .navbar-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #111;
+}
+
+.archive-navbar .navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.archive-navbar .btn-logout {
+  margin-left: 0;
+}
+
+@media (max-width: 700px) {
+  .archive-navbar {
+    height: 48px;
+    padding: 0 12px;
+  }
+  .archive-navbar .navbar-title {
+    font-size: 1.1rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .card img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 18px;
+  }
+  .archive-container {
+    padding: 16px 6px 32px 6px;
+    border-radius: 12px;
+  }
+}
+body.landing-bg {
+  background: url('/images/LandingPageBackground1.png') no-repeat center center fixed;
   background-size: cover;
-  background-position: center top;
 }
 body.login-bg {
   background: #f7f7f9;
