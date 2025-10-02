@@ -167,4 +167,7 @@ body.archive-bg {
   background-size: cover;
   background-position: center top;
 }
+body.login-bg {
+  background: #f7f7f9;
+}
 
