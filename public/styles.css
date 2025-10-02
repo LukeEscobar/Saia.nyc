@@ -148,3 +148,9 @@ body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;marg
       transition: opacity 0.3s;
       display: block;
     }
+    /* background image for landingpage
+    body {
+      background: url('/images/LandingPageBackground1.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+*/
