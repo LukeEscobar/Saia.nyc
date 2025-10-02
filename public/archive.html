@@ -6,15 +6,13 @@
   <title>Saia — Archive</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
+<body class="archive-bg">
+  <form action="/logout" method="get" class="logout-top-right">
+    <button type="submit" class="btn btn-logout">Log out</button>
+  </form>
   <header class="site-header">
-  <img src="/images/saia-logo.png" class="logo" alt="Saia logo" />
-  <nav>
-    <form action="/logout" method="get" style="display:inline;">
-      <button type="submit" class="btn btn-logout">Log out</button>
-    </form>
-  </nav>
-</header>
+    <img src="/images/saia-logo.png" class="logo archive-logo" alt="Saia logo" />
+  </header>
   <main class="container">
     <section id="list" class="grid"></section>
   </main>
