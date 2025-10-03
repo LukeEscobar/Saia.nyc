@@ -21,64 +21,54 @@
     <section id="list" class="grid"></section>
   </main>
   <script>
-    function getAltImage(g) {
-      const altMap = {
-        "/images/sample-jacket.jpg": "/images/trenchcoat-sample.jpg",
-        "/images/experimental-coat.png": "/images/sample-woolsweater.jpg",
-        "/images/trenchcoat-sample.jpg": "/images/denimshirt-sample.jpg",
-        "/images/denimshirt-sample.jpg": "/images/sample-corduroypants.jpg",
-        "/images/sample-woolsweater.jpg": "/images/sample-silkblouse.jpg",
-        "/images/sample-corduroypants.jpg": "/images/sample-puffervest.jpg",
-        "/images/sample-silkblouse.jpg": "/images/sample-jacket.jpg",
-        "/images/sample-puffervest.jpg": "/images/experimental-coat.png"
-      };
-      return altMap[g.image] || g.image;
-    }
+  function getAltImage(g) {
+    return g.image2 || g.image1;
+  }
 
-    async function load() {
-      try {
-        const res = await fetch('/api/garments');
-        if (!res.ok) throw new Error('failed');
-        const data = await res.json();
-        const container = document.getElementById('list');
-        if (!data.length) {
-          container.innerHTML = '<p>No garments available.</p>';
-          return;
-        }
-        container.innerHTML = data.map((g, idx) => {
-          const altImage = getAltImage(g);
-          const carouselId = `carousel-${idx}`;
-          return `
-            <article class="card">
-              <img src="${g.image}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
-              <h3>${g.title}</h3>
-              <div class="meta">${
-                g.size ? `Size: ${g.size}` : ''
-              }${g.size && g.condition ? ' • ' : ''}${g.condition ? `Condition: ${g.condition}` : ''}</div>
-              <div class="desc">${g.description || ''}</div>
-            </article>
-          `;
-        }).join('');
-
-        // Hover logic for each card
-        data.forEach((g, idx) => {
-          const carouselId = `carousel-${idx}`;
-          const el = document.getElementById(carouselId);
-          const altImage = getAltImage(g);
-          if (el) {
-            el.addEventListener('mouseenter', () => {
-              el.src = altImage;
-            });
-            el.addEventListener('mouseleave', () => {
-              el.src = g.image;
-            });
-          }
-        });
-      } catch (e) {
-        document.getElementById('list').innerHTML = '<p>Unable to load garments.</p>';
+  async function load() {
+    try {
+      const res = await fetch('/api/garments');
+      if (!res.ok) throw new Error('failed');
+      const data = await res.json();
+      const container = document.getElementById('list');
+      if (!data.length) {
+        container.innerHTML = '<p>No garments available.</p>';
+        return;
       }
+      container.innerHTML = data.map((g, idx) => {
+        const altImage = getAltImage(g);
+        const carouselId = `carousel-${idx}`;
+        return `
+          <article class="card">
+            <img src="${g.image1}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
+            <h3>${g.title}</h3>
+            <div class="meta">${
+              g.size ? `Size: ${g.size}` : ''
+            }${g.size && g.condition ? ' • ' : ''}${g.condition ? `Condition: ${g.condition}` : ''}</div>
+            <div class="desc">${g.description || ''}</div>
+          </article>
+        `;
+      }).join('');
+
+      // Hover logic
+      data.forEach((g, idx) => {
+        const carouselId = `carousel-${idx}`;
+        const el = document.getElementById(carouselId);
+        const altImage = getAltImage(g);
+        if (el && altImage && altImage !== g.image1) {
+          el.addEventListener('mouseenter', () => {
+            el.src = altImage;
+          });
+          el.addEventListener('mouseleave', () => {
+            el.src = g.image1;
+          });
+        }
+      });
+    } catch (e) {
+      document.getElementById('list').innerHTML = '<p>Unable to load garments.</p>';
     }
-    load();
+  }
+  load();
   </script>
 </body>
 </html>

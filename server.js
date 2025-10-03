@@ -6,8 +6,9 @@ const crypto = require('crypto');
 
 const PORT = process.env.PORT || 3000;
 const PASSWORD = process.env.PASSWORD || 'letmein'; // change via env for production
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123'; // admin password
 
-const sessions = new Map(); // sessionId -> {created}
+const sessions = new Map(); // sessionId -> {created, admin: bool}
 
 function parseCookies(req) {
   const header = req.headers.cookie || '';
@@ -62,6 +63,14 @@ function isAuthenticated(req) {
   return sessions.has(sid);
 }
 
+function isAdmin(req) {
+  const cookies = parseCookies(req);
+  const sid = cookies['sid'];
+  if (!sid) return false;
+  const session = sessions.get(sid);
+  return session && session.admin;
+}
+
 const server = http.createServer((req, res) => {
   const parsed = url.parse(req.url, true);
   const pathname = parsed.pathname;
@@ -84,13 +93,17 @@ const server = http.createServer((req, res) => {
       req.on('end', () => {
         const params = new URLSearchParams(body);
         const pass = params.get('password') || '';
-        if (pass === PASSWORD) {
+        let isAdminUser = false;
+        if (pass === ADMIN_PASSWORD) {
+          isAdminUser = true;
+        }
+        if (pass === PASSWORD || isAdminUser) {
           const sid = generateSession();
-          sessions.set(sid, {created: Date.now()});
+          sessions.set(sid, {created: Date.now(), admin: isAdminUser});
           // set cookie
           res.writeHead(302, {
             'Set-Cookie': `sid=${sid}; HttpOnly; Path=/; Max-Age=86400`,
-            'Location': '/archive'
+            'Location': isAdminUser ? '/admin.html' : '/archive'
           });
           res.end();
         } else {
@@ -125,6 +138,16 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (pathname === '/admin.html') {
+    if (!isAdmin(req)) {
+      res.writeHead(302, {'Location': '/login'});
+      res.end();
+      return;
+    }
+    sendFile(res, path.join(__dirname, 'public', 'admin.html'));
+    return;
+  }
+
   if (pathname.startsWith('/api/')) {
     // simple API endpoints
     if (pathname === '/api/garments') {
@@ -134,6 +157,61 @@ const server = http.createServer((req, res) => {
         return;
       }
       sendFile(res, path.join(__dirname, 'data', 'garments.json'));
+      return;
+    }
+    if (pathname === '/api/garments' && req.method === 'POST') {
+      console.log('POST /api/garments received'); // Add this line
+      if (!isAdmin(req)) {
+        res.writeHead(401, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'unauthorized'}));
+        return;
+      }
+      let body = '';
+      req.on('data', chunk => body += chunk.toString());
+      req.on('end', () => {
+        try {
+          console.log('Received garment POST:', body);
+          const garment = JSON.parse(body);
+          // Save images as files if they're data URLs
+          let imagePath1 = garment.image1;
+          let imagePath2 = garment.image2;
+          if (garment.imageData1 && garment.imageData1.startsWith('data:image/')) {
+            const ext1 = garment.imageData1.substring(11, garment.imageData1.indexOf(';'));
+            const base64_1 = garment.imageData1.split(',')[1];
+            const filename1 = `uploaded-${Date.now()}-1.${ext1}`;
+            const filePath1 = path.join(__dirname, 'public', 'images', filename1);
+            fs.writeFileSync(filePath1, Buffer.from(base64_1, 'base64'));
+            imagePath1 = `/images/${filename1}`;
+          }
+          if (garment.imageData2 && garment.imageData2.startsWith('data:image/')) {
+            const ext2 = garment.imageData2.substring(11, garment.imageData2.indexOf(';'));
+            const base64_2 = garment.imageData2.split(',')[1];
+            const filename2 = `uploaded-${Date.now()}-2.${ext2}`;
+            const filePath2 = path.join(__dirname, 'public', 'images', filename2);
+            fs.writeFileSync(filePath2, Buffer.from(base64_2, 'base64'));
+            imagePath2 = `/images/${filename2}`;
+          }
+          // Load garments.json
+          const garmentsFile = path.join(__dirname, 'data', 'garments.json');
+          const garments = JSON.parse(fs.readFileSync(garmentsFile, 'utf8'));
+          garments.push({
+            id: `g${garments.length + 1}`,
+            title: garment.title,
+            size: garment.size,
+            condition: garment.condition,
+            description: garment.description,
+            image1: imagePath1,
+            image2: imagePath2
+          });
+          fs.writeFileSync(garmentsFile, JSON.stringify(garments, null, 2));
+          res.writeHead(200, {'Content-Type': 'application/json'});
+          res.end(JSON.stringify({success: true}));
+        } catch (err) {
+          console.error('Garment add error:', err);
+          res.writeHead(400, {'Content-Type': 'application/json'});
+          res.end(JSON.stringify({error: err.message || 'invalid data'}));
+        }
+      });
       return;
     }
   }

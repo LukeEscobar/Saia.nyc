@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Saia — Admin</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" type="image/png" href="/images/saia-tab.png" />
+</head>
+<body class="archive-bg">
+  <nav class="archive-navbar">
+    <img src="/images/saia-logo.png" alt="Saia logo" style="height:140px; width:auto; margin-left:-40px;">
+    <span class="navbar-title" style="font-size:2.2rem;font-weight:700;letter-spacing:0.12em;margin-left:32px;">ARCHIVE</span>
+    <div class="navbar-actions">
+      <button class="btn btn-edit" style="margin-right:18px;" id="editBtn">Edit Page</button>
+      <form action="/logout" method="get" style="display:inline;">
+        <button type="submit" class="btn btn-logout">Log out</button>
+      </form>
+    </div>
+  </nav>
+  <main class="archive-container">
+    <div id="editModal">
+      <div class="modal-bg">
+        <div class="modal">
+          <button class="close-btn" id="closeModalBtn">&times;</button>
+          <form class="add-garment-form" id="addGarmentForm">
+            <div>
+              <div class="img-drop-zone" id="imgDropZone1">
+                Drag & drop a cover image here or click to select
+                <input type="file" id="imgInput1" accept="image/*" style="display:none;" />
+                <img id="imgPreview1" class="img-preview" style="display:none;" />
+              </div>
+              <div class="img-drop-zone" id="imgDropZone2">
+                Drag & drop a 2nd image here or click to select
+                <input type="file" id="imgInput2" accept="image/*" style="display:none;" />
+                <img id="imgPreview2" class="img-preview" style="display:none;" />
+              </div>
+            </div>
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" required />
+            <label for="size">Size</label>
+            <input id="size" name="size" type="text" required />
+            <label for="condition">Condition</label>
+            <select id="condition" name="condition" required>
+              <option value="">Select condition</option>
+              <option value="New">New</option>
+              <option value="Excellent">Excellent</option>
+              <option value="Very good">Very good</option>
+              <option value="Good">Good</option>
+            </select>
+            <label for="description">Description</label>
+            <input id="description" name="description" type="text" required />
+            <button class="btn" type="submit">Add Garment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <section id="list" class="grid"></section>
+  </main>
+  <script>
+    // Modal logic
+    const editBtn = document.getElementById('editBtn');
+    const editModal = document.getElementById('editModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    editBtn.addEventListener('click', () => {
+      editModal.classList.add('active');
+    });
+    closeModalBtn.addEventListener('click', () => {
+      editModal.classList.remove('active');
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') editModal.classList.remove('active');
+    });
+
+    // Drag & drop image logic for two images
+    let uploadedImageDataUrl1 = '';
+    let uploadedImageDataUrl2 = '';
+
+    function setupDropZone(dropZoneId, inputId, previewId, setImageCallback) {
+      const dropZone = document.getElementById(dropZoneId);
+      const input = document.getElementById(inputId);
+      const preview = document.getElementById(previewId);
+
+      dropZone.addEventListener('click', () => input.click());
+      dropZone.addEventListener('dragover', e => {
+        e.preventDefault();
+        dropZone.style.background = '#eaeaea';
+      });
+      dropZone.addEventListener('dragleave', e => {
+        e.preventDefault();
+        dropZone.style.background = '#fafafa';
+      });
+      dropZone.addEventListener('drop', e => {
+        e.preventDefault();
+        dropZone.style.background = '#fafafa';
+        const file = e.dataTransfer.files[0];
+        handleImageFile(file, preview, setImageCallback);
+      });
+      input.addEventListener('change', e => {
+        const file = e.target.files[0];
+        handleImageFile(file, preview, setImageCallback);
+      });
+    }
+
+    function handleImageFile(file, preview, setImageCallback) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        setImageCallback(e.target.result);
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    setupDropZone('imgDropZone1', 'imgInput1', 'imgPreview1', (dataUrl) => uploadedImageDataUrl1 = dataUrl);
+    setupDropZone('imgDropZone2', 'imgInput2', 'imgPreview2', (dataUrl) => uploadedImageDataUrl2 = dataUrl);
+
+    // Add garment form logic
+    document.getElementById('addGarmentForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const title = document.getElementById('title').value;
+      const size = document.getElementById('size').value;
+      const condition = document.getElementById('condition').value;
+      const description = document.getElementById('description').value;
+      if (!uploadedImageDataUrl1 || !uploadedImageDataUrl2) {
+        alert('Please upload both images.');
+        return;
+      }
+      // Send to server (you need to implement /api/garments POST in server.js)
+      const res = await fetch('/api/garments', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          title, size, condition, description,
+          imageData1: uploadedImageDataUrl1,
+          imageData2: uploadedImageDataUrl2
+        })
+      });
+      const result = await res.json();
+      if (res.ok && result.success) {
+        alert('Garment added!');
+        location.reload();
+      } else {
+        alert('Failed to add garment: ' + (result.error || 'Unknown error'));
+      }
+    });
+
+    // Existing grid logic (unchanged)
+    function getAltImage(g) {
+      return g.image2 || g.image1;
+    }
+
+    async function load() {
+      try {
+        const res = await fetch('/api/garments');
+        if (!res.ok) throw new Error('failed');
+        const data = await res.json();
+        const container = document.getElementById('list');
+        if (!data.length) {
+          container.innerHTML = '<p>No garments available.</p>';
+          return;
+        }
+        container.innerHTML = data.map((g, idx) => {
+          const altImage = getAltImage(g);
+          const carouselId = `carousel-${idx}`;
+          return `
+            <article class="card">
+              <img src="${g.image1}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
+              <h3>${g.title}</h3>
+              <div class="meta">${
+                g.size ? `Size: ${g.size}` : ''
+              }${g.size && g.condition ? ' • ' : ''}${g.condition ? `Condition: ${g.condition}` : ''}</div>
+              <div class="desc">${g.description || ''}</div>
+            </article>
+          `;
+        }).join('');
+
+        // Hover logic
+        data.forEach((g, idx) => {
+          const carouselId = `carousel-${idx}`;
+          const el = document.getElementById(carouselId);
+          const altImage = getAltImage(g);
+          if (el && altImage && altImage !== g.image1) {
+            el.addEventListener('mouseenter', () => {
+              el.src = altImage;
+            });
+            el.addEventListener('mouseleave', () => {
+              el.src = g.image1;
+            });
+          }
+        });
+      } catch (e) {
+        document.getElementById('list').innerHTML = '<p>Unable to load garments.</p>';
+      }
+    }
+    load();
+  </script>
+</body>
+</html>

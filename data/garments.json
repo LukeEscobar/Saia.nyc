@@ -5,7 +5,8 @@
     "size": "M",
     "condition": "Very good",
     "description": "Wool jacket, limited release.",
-    "image": "/images/sample-jacket.jpg"
+    "image1": "/images/sample-jacket.jpg",
+    "image2": "/images/trenchcoat-sample.jpg"
   },
   {
     "id": "g2",
@@ -13,7 +14,8 @@
     "size": "L",
     "condition": "New",
     "description": "Hand-finished coat, experimental weave.",
-    "image": "/images/experimental-coat.png"
+    "image1": "/images/experimental-coat.png",
+    "image2": "/images/sample-woolsweater.jpg"
   },
   {
     "id": "g3",
@@ -21,7 +23,8 @@
     "size": "M",
     "condition": "Excellent",
     "description": "Timeless beige trench coat.",
-    "image": "/images/trenchcoat-sample.jpg"
+    "image1": "/images/trenchcoat-sample.jpg",
+    "image2": "/images/denimshirt-sample.jpg"
   },
   {
     "id": "g4",
@@ -29,7 +32,8 @@
     "size": "S",
     "condition": "Good",
     "description": "Light-wash denim, relaxed fit.",
-    "image": "/images/denimshirt-sample.jpg"
+    "image1": "/images/denimshirt-sample.jpg",
+    "image2": "/images/sample-corduroypants.jpg"
   },
   {
     "id": "g5",
@@ -37,7 +41,8 @@
     "size": "L",
     "condition": "Very good",
     "description": "Soft wool, navy blue.",
-    "image": "/images/sample-woolsweater.jpg"
+    "image1": "/images/sample-woolsweater.jpg",
+    "image2": "/images/sample-silkblouse.jpg"
   },
   {
     "id": "g6",
@@ -45,7 +50,8 @@
     "size": "M",
     "condition": "New",
     "description": "Brown corduroy, straight leg.",
-    "image": "/images/sample-corduroypants.jpg"
+    "image1": "/images/sample-corduroypants.jpg",
+    "image2": "/images/sample-puffervest.jpg"
   },
   {
     "id": "g7",
@@ -53,7 +59,8 @@
     "size": "S",
     "condition": "Excellent",
     "description": "Ivory silk, button-up.",
-    "image": "/images/sample-silkblouse.jpg"
+    "image1": "/images/sample-silkblouse.jpg",
+    "image2": "/images/sample-jacket.jpg"
   },
   {
     "id": "g8",
@@ -61,7 +68,8 @@
     "size": "L",
     "condition": "Good",
     "description": "Black puffer, lightweight.",
-    "image": "/images/sample-puffervest.jpg"
+    "image1": "/images/sample-puffervest.jpg",
+    "image2": "/images/experimental-coat.png"
   },
   {
     "id": "g9",
@@ -69,7 +77,8 @@
     "size": "M",
     "condition": "Good",
     "description": "Retro style, classic fit.",
-    "image": "/images/sample-jacket.jpg"
+    "image1": "/images/sample-jacket.jpg",
+    "image2": "/images/trenchcoat-sample.jpg"
   },
   {
     "id": "g10",
@@ -77,7 +86,8 @@
     "size": "L",
     "condition": "New",
     "description": "Minimalist design, warm lining.",
-    "image": "/images/experimental-coat.png"
+    "image1": "/images/experimental-coat.png",
+    "image2": "/images/sample-woolsweater.jpg"
   },
   {
     "id": "g11",
@@ -85,7 +95,8 @@
     "size": "M",
     "condition": "Excellent",
     "description": "Waterproof, stylish.",
-    "image": "/images/trenchcoat-sample.jpg"
+    "image1": "/images/trenchcoat-sample.jpg",
+    "image2": "/images/denimshirt-sample.jpg"
   },
   {
     "id": "g12",
@@ -93,7 +104,8 @@
     "size": "S",
     "condition": "Good",
     "description": "Soft chambray, casual.",
-    "image": "/images/denimshirt-sample.jpg"
+    "image1": "/images/denimshirt-sample.jpg",
+    "image2": "/images/sample-corduroypants.jpg"
   },
   {
     "id": "g13",
@@ -101,7 +113,8 @@
     "size": "L",
     "condition": "Very good",
     "description": "Luxury cashmere, navy.",
-    "image": "/images/sample-woolsweater.jpg"
+    "image1": "/images/sample-woolsweater.jpg",
+    "image2": "/images/sample-silkblouse.jpg"
   },
   {
     "id": "g14",
@@ -109,7 +122,8 @@
     "size": "M",
     "condition": "New",
     "description": "Slim fit, brown corduroy.",
-    "image": "/images/sample-corduroypants.jpg"
+    "image1": "/images/sample-corduroypants.jpg",
+    "image2": "/images/sample-puffervest.jpg"
   },
   {
     "id": "g15",
@@ -117,7 +131,8 @@
     "size": "S",
     "condition": "Excellent",
     "description": "Smooth satin, ivory.",
-    "image": "/images/sample-silkblouse.jpg"
+    "image1": "/images/sample-silkblouse.jpg",
+    "image2": "/images/sample-jacket.jpg"
   },
   {
     "id": "g16",
@@ -125,6 +140,7 @@
     "size": "L",
     "condition": "Good",
     "description": "Lightweight down, black.",
-    "image": "/images/sample-puffervest.jpg"
+    "image1": "/images/sample-puffervest.jpg",
+    "image2": "/images/experimental-coat.png"
   }
 ]
