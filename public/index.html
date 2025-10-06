@@ -8,18 +8,88 @@
   <link rel="icon" type="image/png" href="/images/saia-tab.png" />
 </head>
 <body class="landing-bg">
-  <header class="site-header">
-    <img src="/images/saia-logo.png" class="logo" alt="Saia logo" />
-  </header>
+  <div id="mainContainer">
+    <section class="section-fullscreen" style="background:transparent;">
+      <header class="site-header">
+        <img src="/images/saia-logo.png" class="logo" alt="Saia logo" />
+      </header>
+      <form id="archiveLoginForm" style="display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px;">
+        <input
+          id="archivePassword"
+          name="password"
+          type="password"
+          placeholder="Enter password"
+          class="btn btn-large"
+          style="width:100%;max-width:320px;position:relative;z-index:2;text-align:center;"
+          autofocus
+        />
+        <div id="archiveLoginError" style="color:#c00;font-size:1rem;display:none;text-align:center;">Incorrect password</div>
+      </form>
+      <div class="scroll-indicator">
+        <div style="margin-top:8px;">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+            <path d="M12 16l-6-6h12l-6 6z" fill="#fff"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+    <section class="section-fullscreen section-white" id="aboutSection">
+      <div style="max-width:500px;width:100%;text-align:center;">
+        <h2 style="font-size:2rem;margin-bottom:16px;">About Me</h2>
+        <p style="margin-bottom:32px;">
+          <!-- Replace with real about text -->
+          Blah Blah Blah Blah Words, and important things.
+        </p>
+        <h3 style="margin-bottom:8px;">Contact</h3>
+        <p style="margin-bottom:24px;">
+          <a href="mailto:lauren@saia.nyc" style="color:#111;text-decoration:underline;">lauren@saia.nyc</a>
+        </p>
+        <h3 style="margin-bottom:8px;">Social</h3>
+        <div style="display:flex;gap:24px;justify-content:center;">
+          <a href="https://instagram.com/" target="_blank" rel="noopener" style="display:inline-block;">
+            <img src="/images/instagram-logo.png" alt="Instagram" style="height:36px;width:36px;object-fit:contain;vertical-align:middle;border-radius:8px;">
+          </a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener" style="display:inline-block;">
+            <img src="/images/x-logo.png" alt="X" style="height:36px;width:36px;object-fit:contain;vertical-align:middle;border-radius:8px;">
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+  const archivePassword = document.getElementById('archivePassword');
+  const archiveLoginForm = document.getElementById('archiveLoginForm');
+  const archiveLoginError = document.getElementById('archiveLoginError');
 
-  <main class="container">
-    <section class="center-cta">
-      <a class="btn btn-large" href="/login">Enter archive</a>
-    </section>
-    <section class="bio">
-      <h3>Blurb</h3>
-      <p>Lauren pick what info goes here, or remove it</p>
-    </section>
-  </main>
+  archiveLoginForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const pw = archivePassword.value;
+    const res = await fetch('/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: 'password=' + encodeURIComponent(pw)
+    });
+    if (res.redirected) {
+      window.location.href = res.url;
+    } else {
+      archiveLoginError.style.display = 'block';
+    }
+  });
+
+  archivePassword.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      archiveLoginForm.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true}));
+    }
+  });
+
+  // Optional: auto-scroll to about section on first scroll
+  let scrolled = false;
+  window.addEventListener('wheel', function(e) {
+    if (!scrolled && e.deltaY > 0) {
+      document.getElementById('aboutSection').scrollIntoView({behavior: 'smooth'});
+      scrolled = true;
+    }
+  }, {passive: true});
+  </script>
 </body>
 </html>
