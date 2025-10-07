@@ -1,7 +1,7 @@
 :root{--bg:#fff;--muted:#666;--accent:#111}
 *{box-sizing:border-box}
 .site-header{padding:0;border-bottom:none;display:flex;justify-content:center;align-items:center}
-.site-header .logo{height:569px;display:block;margin:-24px 0 32px -60px;filter:invert(1) brightness(2);}
+.site-header .logo{height:569px;display:block;margin:-200px 0 32px -60px;filter:invert(1) brightness(2);}
 .site-header .logo.archive-logo {
   height: 240px;
   margin: 0;
@@ -376,7 +376,7 @@ body.landing-bg {
   background: #fff;
 }
 .scroll-indicator {
-  margin-top: 32px;
+  margin-top: 210px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -397,8 +397,8 @@ body.landing-bg {
 
 .scroll-indicator svg {
   margin-top: 8px;
-  width: 64px;
-  height: 64px;
+  width: 75px;   /* 50% bigger than 64px */
+  height: 75px;
 }
 
 .scroll-indicator svg path {
@@ -523,10 +523,10 @@ body.landing-bg {
 }
 
 .archive-navbar img {
-  height: 250px;
+  height: 220px;
   width: auto;
-  margin-left: -85px;
-  margin-top: 12px;
+  margin-left: -75px;
+  margin-top: 10px;
   filter: none;
 }
 #archivePassword.btn.btn-large {
@@ -544,4 +544,6 @@ body.landing-bg {
 #archivePassword.btn.btn-large:focus {
   background: #222;
 }
-
+#archiveLoginForm {
+  margin-top: -150px;
+}
