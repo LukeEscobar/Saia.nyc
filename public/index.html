@@ -26,7 +26,7 @@
         <div id="archiveLoginError" style="color:#c00;font-size:1rem;display:none;text-align:center;">Incorrect password</div>
       </form>
       <div class="scroll-indicator">
-        <div style="margin-top:8px;">
+        <div style="margin-top:8px; cursor:pointer;" id="scrollArrow">
           <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
             <path d="M12 16l-6-6h12l-6 6z" fill="#fff"/>
           </svg>
@@ -90,6 +90,11 @@
       scrolled = true;
     }
   }, {passive: true});
+
+  // Make the moving arrow clickable to scroll to About Me
+  document.getElementById('scrollArrow').addEventListener('click', function() {
+    document.getElementById('aboutSection').scrollIntoView({behavior: 'smooth'});
+  });
   </script>
 </body>
 </html>

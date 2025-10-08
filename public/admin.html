@@ -51,6 +51,7 @@
         </div>
       </div>
     </div>
+    <button id="saveOrderBtn" class="btn" style="margin-bottom:18px;">Save Order</button>
     <section id="list" class="grid"></section>
   </main>
   <script>
@@ -147,50 +148,126 @@
       return g.image2 || g.image1;
     }
 
+    let currentGarments = [];
+
     async function load() {
       try {
         const res = await fetch('/api/garments');
         if (!res.ok) throw new Error('failed');
         const data = await res.json();
-        const container = document.getElementById('list');
-        if (!data.length) {
-          container.innerHTML = '<p>No garments available.</p>';
-          return;
-        }
-        container.innerHTML = data.map((g, idx) => {
-          const altImage = getAltImage(g);
-          const carouselId = `carousel-${idx}`;
-          return `
-            <article class="card">
-              <img src="${g.image1}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
-              <h3>${g.title}</h3>
-              <div class="meta">${
-                g.size ? `Size: ${g.size}` : ''
-              }${g.size && g.condition ? ' • ' : ''}${g.condition ? `Condition: ${g.condition}` : ''}</div>
-              <div class="desc">${g.description || ''}</div>
-            </article>
-          `;
-        }).join('');
-
-        // Hover logic
-        data.forEach((g, idx) => {
-          const carouselId = `carousel-${idx}`;
-          const el = document.getElementById(carouselId);
-          const altImage = getAltImage(g);
-          if (el && altImage && altImage !== g.image1) {
-            el.addEventListener('mouseenter', () => {
-              el.src = altImage;
-            });
-            el.addEventListener('mouseleave', () => {
-              el.src = g.image1;
-            });
-          }
-        });
+        currentGarments = data.slice(); // Copy for local order tracking
+        renderGrid();
       } catch (e) {
         document.getElementById('list').innerHTML = '<p>Unable to load garments.</p>';
       }
     }
     load();
+
+    function attachCardListeners() {
+      // Hover logic for alternate image
+      currentGarments.forEach((g, idx) => {
+        const carouselId = `carousel-${idx}`;
+        const el = document.getElementById(carouselId);
+        const altImage = getAltImage(g);
+        if (el && altImage && altImage !== g.image1) {
+          el.onmouseenter = () => { el.src = altImage; };
+          el.onmouseleave = () => { el.src = g.image1; };
+        }
+      });
+
+      // Drag-and-drop logic
+      let dragSrcIdx = null;
+      document.querySelectorAll('.card').forEach((card, idx) => {
+        card.addEventListener('dragstart', function(e) {
+          dragSrcIdx = idx;
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', ''); // Required for Firefox
+          this.classList.add('dragElem');
+        });
+        card.addEventListener('dragover', function(e) {
+          e.preventDefault();
+          this.classList.add('over');
+        });
+        card.addEventListener('dragleave', function(e) {
+          this.classList.remove('over');
+        });
+        card.addEventListener('drop', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const dropIdx = Array.from(document.querySelectorAll('.card')).indexOf(this);
+          if (dragSrcIdx !== null && dragSrcIdx !== dropIdx) {
+            // Move the item in the array
+            const moved = currentGarments.splice(dragSrcIdx, 1)[0];
+            currentGarments.splice(dropIdx, 0, moved);
+            renderGrid(); // Re-render grid and re-attach listeners
+          }
+          return false;
+        });
+        card.addEventListener('dragend', function(e) {
+          document.querySelectorAll('.card').forEach(c => c.classList.remove('over', 'dragElem'));
+        });
+      });
+    }
+
+    document.addEventListener('click', async function(e) {
+      if (e.target.classList.contains('btn-delete')) {
+        const id = e.target.getAttribute('data-id');
+        if (confirm('Are you sure you want to delete this garment?')) {
+          const res = await fetch('/api/garments', {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ id })
+          });
+          const result = await res.json();
+          if (res.ok && result.success) {
+            alert('Garment deleted!');
+            load();
+          } else {
+            alert('Failed to delete garment: ' + (result.error || 'Unknown error'));
+          }
+        }
+      }
+    });
+
+    document.getElementById('saveOrderBtn').addEventListener('click', async function() {
+      const ids = currentGarments.map(g => g.id);
+      const res = await fetch('/api/garments/order', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ order: ids })
+      });
+      const result = await res.json();
+      if (res.ok && result.success) {
+        alert('Order saved!');
+        load();
+      } else {
+        alert('Failed to save order: ' + (result.error || 'Unknown error'));
+      }
+    });
+
+    function renderGrid() {
+      const container = document.getElementById('list');
+      if (!currentGarments.length) {
+        container.innerHTML = '<p>No garments available.</p>';
+        return;
+      }
+      container.innerHTML = currentGarments.map((g, idx) => {
+        const altImage = getAltImage(g);
+        const carouselId = `carousel-${idx}`;
+        return `
+          <article class="card" data-id="${g.id}" draggable="true">
+            <img src="${g.image1}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
+            <h3>${g.title}</h3>
+            <div class="meta">${
+              g.size ? `Size: ${g.size}` : ''
+            }${g.size && g.condition ? ' • ' : ''}${g.condition ? `Condition: ${g.condition}` : ''}</div>
+            <div class="desc">${g.description || ''}</div>
+            <button class="btn btn-delete" data-id="${g.id}" style="margin-top:8px;background:#c00;">Delete</button>
+          </article>
+        `;
+      }).join('');
+      attachCardListeners();
+    }
   </script>
 </body>
 </html>

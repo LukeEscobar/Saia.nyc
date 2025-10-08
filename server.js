@@ -72,6 +72,9 @@ function isAdmin(req) {
 }
 
 const server = http.createServer((req, res) => {
+  // Add this line at the top of the handler:
+  console.log('Incoming request:', req.method, req.url);
+
   const parsed = url.parse(req.url, true);
   const pathname = parsed.pathname;
 
@@ -150,17 +153,10 @@ const server = http.createServer((req, res) => {
 
   if (pathname.startsWith('/api/')) {
     // simple API endpoints
-    if (pathname === '/api/garments') {
-      if (!isAuthenticated(req)) {
-        res.writeHead(401, {'Content-Type': 'application/json'});
-        res.end(JSON.stringify({error: 'unauthorized'}));
-        return;
-      }
-      sendFile(res, path.join(__dirname, 'data', 'garments.json'));
-      return;
-    }
+
+    // --- MOVE THIS BLOCK UP ---
     if (pathname === '/api/garments' && req.method === 'POST') {
-      console.log('POST /api/garments received'); // Add this line
+      console.log('--- POST /api/garments handler reached ---');
       if (!isAdmin(req)) {
         res.writeHead(401, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'unauthorized'}));
@@ -170,7 +166,7 @@ const server = http.createServer((req, res) => {
       req.on('data', chunk => body += chunk.toString());
       req.on('end', () => {
         try {
-          console.log('Received garment POST:', body);
+          console.log('BODY:', body); // <-- Add this line here
           const garment = JSON.parse(body);
           // Save images as files if they're data URLs
           let imagePath1 = garment.image1;
@@ -208,6 +204,74 @@ const server = http.createServer((req, res) => {
           res.end(JSON.stringify({success: true}));
         } catch (err) {
           console.error('Garment add error:', err);
+          res.writeHead(400, {'Content-Type': 'application/json'});
+          res.end(JSON.stringify({error: err.message || 'invalid data'}));
+        }
+      });
+      return;
+    }
+
+    if (pathname === '/api/garments' && req.method === 'DELETE') {
+      console.log('--- DELETE /api/garments handler reached ---');
+      if (!isAdmin(req)) {
+        res.writeHead(401, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'unauthorized'}));
+        return;
+      }
+      let body = '';
+      req.on('data', chunk => body += chunk.toString());
+      req.on('end', () => {
+        try {
+          console.log('DELETE BODY:', body); // <--- Add this
+          const { id } = JSON.parse(body);
+          console.log('DELETE ID:', id); // <--- Add this
+          const garmentsFile = path.join(__dirname, 'data', 'garments.json');
+          let garments = JSON.parse(fs.readFileSync(garmentsFile, 'utf8'));
+          const idx = garments.findIndex(g => g.id === id);
+          if (idx === -1) throw new Error('Garment not found');
+          garments.splice(idx, 1);
+          fs.writeFileSync(garmentsFile, JSON.stringify(garments, null, 2));
+          res.writeHead(200, {'Content-Type': 'application/json'});
+          res.end(JSON.stringify({success: true}));
+        } catch (err) {
+          console.error('Garment delete error:', err);
+          res.writeHead(400, {'Content-Type': 'application/json'});
+          res.end(JSON.stringify({error: err.message || 'invalid data'}));
+        }
+      });
+      return;
+    }
+
+    if (pathname === '/api/garments') {
+      if (!isAuthenticated(req)) {
+        res.writeHead(401, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'unauthorized'}));
+        return;
+      }
+      sendFile(res, path.join(__dirname, 'data', 'garments.json'));
+      return;
+    }
+
+    if (pathname === '/api/garments/order' && req.method === 'POST') {
+      if (!isAdmin(req)) {
+        res.writeHead(401, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'unauthorized'}));
+        return;
+      }
+      let body = '';
+      req.on('data', chunk => body += chunk.toString());
+      req.on('end', () => {
+        try {
+          const { order } = JSON.parse(body);
+          const garmentsFile = path.join(__dirname, 'data', 'garments.json');
+          let garments = JSON.parse(fs.readFileSync(garmentsFile, 'utf8'));
+          // Reorder garments array to match the new order
+          garments = order.map(id => garments.find(g => g.id === id)).filter(Boolean);
+          fs.writeFileSync(garmentsFile, JSON.stringify(garments, null, 2));
+          res.writeHead(200, {'Content-Type': 'application/json'});
+          res.end(JSON.stringify({success: true}));
+        } catch (err) {
+          console.error('Garment reorder error:', err);
           res.writeHead(400, {'Content-Type': 'application/json'});
           res.end(JSON.stringify({error: err.message || 'invalid data'}));
         }
