@@ -1,0 +1,22 @@
+{
+  "name": "saia-showroom",
+  "version": "1.0.0",
+  "description": "Making a website for Lauren, Saia showroom",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LukeEscobar/Saia.nyc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LukeEscobar/Saia.nyc/issues"
+  },
+  "homepage": "https://github.com/LukeEscobar/Saia.nyc#readme",
+  "dependencies": {}
+}
