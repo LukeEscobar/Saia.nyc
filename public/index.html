@@ -23,7 +23,6 @@
           style="width:100%;max-width:320px;position:relative;z-index:2;text-align:center;"
           autofocus
         />
-        <div id="archiveLoginError" style="color:#c00;font-size:1rem;display:none;text-align:center;">Incorrect password</div>
       </form>
       <div class="scroll-indicator">
         <div style="margin-top:8px; cursor:pointer;" id="scrollArrow">
@@ -59,7 +58,6 @@
   <script>
   const archivePassword = document.getElementById('archivePassword');
   const archiveLoginForm = document.getElementById('archiveLoginForm');
-  const archiveLoginError = document.getElementById('archiveLoginError');
 
   archiveLoginForm.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -69,10 +67,14 @@
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: 'password=' + encodeURIComponent(pw)
     });
-    if (res.redirected) {
+    if (res.redirected && res.url && !res.url.includes('failed=1')) {
       window.location.href = res.url;
     } else {
-      archiveLoginError.style.display = 'block';
+      archivePassword.classList.add('shake');
+      archivePassword.select();
+      setTimeout(() => {
+        archivePassword.classList.remove('shake');
+      }, 500);
     }
   });
 
