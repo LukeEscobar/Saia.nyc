@@ -231,18 +231,34 @@ body.archive-bg {
   object-fit: contain;
   background: #f8f8f8;
   border-radius: 0;
-  margin-bottom: 18px;
+  margin-bottom: 0;
   transition: transform 0.2s;
 }
 .card:hover img {
   transform: scale(1.04);
 }
+.card .brand {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-bottom: 4px;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 .card h3 {
   font-size: 1.1rem;
   font-weight: 700;
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
   color: #222;
   letter-spacing: 0.01em;
+  text-align: left;
+}
+.card .size {
+  color: #888;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 8px;
   text-align: left;
 }
 .card .meta {
@@ -446,6 +462,50 @@ body.archive-bg {
 }
 .carousel-btn:hover {
   background: #eee;
+}
+
+/* Image container for positioning arrows */
+.image-container {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+/* Carousel arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, opacity 0.2s;
+  opacity: 0;
+  z-index: 10;
+}
+
+.image-container:hover .carousel-arrow {
+  opacity: 1;
+}
+
+.carousel-arrow:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-arrow-left {
+  left: 12px;
+}
+
+.carousel-arrow-right {
+  right: 12px;
 }
 
 /* =========================

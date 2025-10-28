@@ -166,8 +166,18 @@ const server = http.createServer((req, res) => {
       req.on('data', chunk => body += chunk.toString());
       req.on('end', () => {
         try {
-          console.log('BODY:', body); // <-- Add this line here
+          console.log('RAW BODY:', body);
           const garment = JSON.parse(body);
+          console.log('PARSED GARMENT OBJECT:', garment);
+          console.log('BRAND FROM FORM:', garment.brand);
+          console.log('TITLE FROM FORM:', garment.title);
+          console.log('SIZE FROM FORM:', garment.size);
+          
+          // Ensure all fields exist
+          if (!garment.brand || !garment.title || !garment.size) {
+            throw new Error('Missing required fields: brand, title, or size');
+          }
+          
           // Save images as files if they're data URLs
           let imagePath1 = garment.image1;
           let imagePath2 = garment.image2;
@@ -187,19 +197,28 @@ const server = http.createServer((req, res) => {
             fs.writeFileSync(filePath2, Buffer.from(base64_2, 'base64'));
             imagePath2 = `/images/${filename2}`;
           }
+          
           // Load garments.json
           const garmentsFile = path.join(__dirname, 'data', 'garments.json');
           const garments = JSON.parse(fs.readFileSync(garmentsFile, 'utf8'));
-          garments.push({
+          
+          // Create new garment object - explicitly set each field
+          const newGarment = {
             id: `g${garments.length + 1}`,
-            title: garment.title,
-            size: garment.size,
-            condition: garment.condition,
-            description: garment.description,
+            brand: String(garment.brand).trim(),
+            title: String(garment.title).trim(),
+            size: String(garment.size).trim(),
             image1: imagePath1,
             image2: imagePath2
-          });
+          };
+          
+          console.log('NEW GARMENT OBJECT TO SAVE:', newGarment);
+          
+          garments.push(newGarment);
           fs.writeFileSync(garmentsFile, JSON.stringify(garments, null, 2));
+          
+          console.log('GARMENT SAVED SUCCESSFULLY');
+          
           res.writeHead(200, {'Content-Type': 'application/json'});
           res.end(JSON.stringify({success: true}));
         } catch (err) {

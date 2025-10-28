@@ -1,145 +1,129 @@
 [
   {
     "id": "g1",
+    "brand": "Saia",
     "title": "Sample Jacket",
     "size": "M",
-    "condition": "Very good",
-    "description": "Wool jacket, limited release.",
     "image1": "/images/sample-jacket.jpg",
     "image2": "/images/trenchcoat-sample.jpg"
   },
   {
     "id": "g2",
+    "brand": "Saia",
     "title": "Experimental Coat",
     "size": "L",
-    "condition": "New",
-    "description": "Hand-finished coat, experimental weave.",
     "image1": "/images/experimental-coat.png",
     "image2": "/images/sample-woolsweater.jpg"
   },
   {
     "id": "g3",
+    "brand": "Saia",
     "title": "Classic Trench",
     "size": "M",
-    "condition": "Excellent",
-    "description": "Timeless beige trench coat.",
     "image1": "/images/trenchcoat-sample.jpg",
     "image2": "/images/denimshirt-sample.jpg"
   },
   {
     "id": "g4",
+    "brand": "Saia",
     "title": "Denim Shirt",
     "size": "S",
-    "condition": "Good",
-    "description": "Light-wash denim, relaxed fit.",
     "image1": "/images/denimshirt-sample.jpg",
     "image2": "/images/sample-corduroypants.jpg"
   },
   {
     "id": "g5",
+    "brand": "Saia",
     "title": "Wool Sweater",
     "size": "L",
-    "condition": "Very good",
-    "description": "Soft wool, navy blue.",
     "image1": "/images/sample-woolsweater.jpg",
     "image2": "/images/sample-silkblouse.jpg"
   },
   {
     "id": "g6",
+    "brand": "Saia",
     "title": "Corduroy Pants",
     "size": "M",
-    "condition": "New",
-    "description": "Brown corduroy, straight leg.",
     "image1": "/images/sample-corduroypants.jpg",
     "image2": "/images/sample-puffervest.jpg"
   },
   {
     "id": "g7",
+    "brand": "Saia",
     "title": "Silk Blouse",
     "size": "S",
-    "condition": "Excellent",
-    "description": "Ivory silk, button-up.",
     "image1": "/images/sample-silkblouse.jpg",
     "image2": "/images/sample-jacket.jpg"
   },
   {
     "id": "g8",
+    "brand": "Saia",
     "title": "Puffer Vest",
     "size": "L",
-    "condition": "Good",
-    "description": "Black puffer, lightweight.",
     "image1": "/images/sample-puffervest.jpg",
     "image2": "/images/experimental-coat.png"
   },
   {
     "id": "g9",
+    "brand": "Saia",
     "title": "Vintage Jacket",
     "size": "M",
-    "condition": "Good",
-    "description": "Retro style, classic fit.",
     "image1": "/images/sample-jacket.jpg",
     "image2": "/images/trenchcoat-sample.jpg"
   },
   {
     "id": "g10",
+    "brand": "Saia",
     "title": "Modern Coat",
     "size": "L",
-    "condition": "New",
-    "description": "Minimalist design, warm lining.",
     "image1": "/images/experimental-coat.png",
     "image2": "/images/sample-woolsweater.jpg"
   },
   {
     "id": "g11",
+    "brand": "Saia",
     "title": "Rain Trench",
     "size": "M",
-    "condition": "Excellent",
-    "description": "Waterproof, stylish.",
     "image1": "/images/trenchcoat-sample.jpg",
     "image2": "/images/denimshirt-sample.jpg"
   },
   {
     "id": "g12",
+    "brand": "Saia",
     "title": "Chambray Shirt",
     "size": "S",
-    "condition": "Good",
-    "description": "Soft chambray, casual.",
     "image1": "/images/denimshirt-sample.jpg",
     "image2": "/images/sample-corduroypants.jpg"
   },
   {
     "id": "g13",
+    "brand": "Saia",
     "title": "Cashmere Sweater",
     "size": "L",
-    "condition": "Very good",
-    "description": "Luxury cashmere, navy.",
     "image1": "/images/sample-woolsweater.jpg",
     "image2": "/images/sample-silkblouse.jpg"
   },
   {
     "id": "g14",
+    "brand": "Saia",
     "title": "Slim Corduroy",
     "size": "M",
-    "condition": "New",
-    "description": "Slim fit, brown corduroy.",
     "image1": "/images/sample-corduroypants.jpg",
     "image2": "/images/sample-puffervest.jpg"
   },
   {
     "id": "g15",
+    "brand": "Saia",
     "title": "Satin Blouse",
     "size": "S",
-    "condition": "Excellent",
-    "description": "Smooth satin, ivory.",
     "image1": "/images/sample-silkblouse.jpg",
     "image2": "/images/sample-jacket.jpg"
   },
   {
     "id": "g16",
+    "brand": "Saia",
     "title": "Down Vest",
     "size": "L",
-    "condition": "Good",
-    "description": "Lightweight down, black.",
     "image1": "/images/sample-puffervest.jpg",
     "image2": "/images/experimental-coat.png"
   }

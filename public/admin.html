@@ -33,20 +33,12 @@
                 <img id="imgPreview2" class="img-preview" style="display:none;" />
               </div>
             </div>
+            <label for="brand">Brand</label>
+            <input id="brand" name="brand" type="text" required />
             <label for="title">Title</label>
             <input id="title" name="title" type="text" required />
             <label for="size">Size</label>
             <input id="size" name="size" type="text" required />
-            <label for="condition">Condition</label>
-            <select id="condition" name="condition" required>
-              <option value="">Select condition</option>
-              <option value="New">New</option>
-              <option value="Excellent">Excellent</option>
-              <option value="Very good">Very good</option>
-              <option value="Good">Good</option>
-            </select>
-            <label for="description">Description</label>
-            <input id="description" name="description" type="text" required />
             <button class="btn" type="submit">Add Garment</button>
           </form>
         </div>
@@ -117,22 +109,29 @@
     document.getElementById('addGarmentForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const title = document.getElementById('title').value;
+      const brand = document.getElementById('brand').value;
       const size = document.getElementById('size').value;
-      const condition = document.getElementById('condition').value;
-      const description = document.getElementById('description').value;
+      
+      console.log('Form values:', { title, brand, size }); // Add this line
+      
       if (!uploadedImageDataUrl1 || !uploadedImageDataUrl2) {
         alert('Please upload both images.');
         return;
       }
-      // Send to server (you need to implement /api/garments POST in server.js)
+      
+      const payload = {
+        title, brand, size,
+        imageData1: uploadedImageDataUrl1,
+        imageData2: uploadedImageDataUrl2
+      };
+      
+      console.log('Sending payload:', payload); // Add this line
+      
+      // Send to server
       const res = await fetch('/api/garments', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          title, size, condition, description,
-          imageData1: uploadedImageDataUrl1,
-          imageData2: uploadedImageDataUrl2
-        })
+        body: JSON.stringify(payload)
       });
       const result = await res.json();
       if (res.ok && result.success) {
@@ -164,15 +163,23 @@
     load();
 
     function attachCardListeners() {
-      // Hover logic for alternate image
-      currentGarments.forEach((g, idx) => {
-        const carouselId = `carousel-${idx}`;
-        const el = document.getElementById(carouselId);
-        const altImage = getAltImage(g);
-        if (el && altImage && altImage !== g.image1) {
-          el.onmouseenter = () => { el.src = altImage; };
-          el.onmouseleave = () => { el.src = g.image1; };
-        }
+      // Click arrow logic for alternate image
+      let currentImages = currentGarments.map(g => ({ current: g.image1, alt: getAltImage(g) }));
+      
+      document.querySelectorAll('.carousel-arrow').forEach(arrow => {
+        arrow.addEventListener('click', function(e) {
+          e.preventDefault();
+          const index = parseInt(this.getAttribute('data-index'));
+          const img = document.getElementById(`carousel-${index}`);
+          const imageData = currentImages[index];
+          
+          // Toggle between images
+          if (img.src.includes(imageData.current.split('/').pop())) {
+            img.src = imageData.alt;
+          } else {
+            img.src = imageData.current;
+          }
+        });
       });
 
       // Drag-and-drop logic
@@ -254,14 +261,19 @@
       container.innerHTML = currentGarments.map((g, idx) => {
         const altImage = getAltImage(g);
         const carouselId = `carousel-${idx}`;
+        const hasMultipleImages = altImage && altImage !== g.image1;
         return `
           <article class="card" data-id="${g.id}" draggable="true">
-            <img src="${g.image1}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
+            <div class="image-container">
+              <img src="${g.image1}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
+              ${hasMultipleImages ? `
+                <button class="carousel-arrow carousel-arrow-left" data-index="${idx}" data-direction="prev">‹</button>
+                <button class="carousel-arrow carousel-arrow-right" data-index="${idx}" data-direction="next">›</button>
+              ` : ''}
+            </div>
+            <div class="brand">${g.brand || ''}</div>
             <h3>${g.title}</h3>
-            <div class="meta">${
-              g.size ? `Size: ${g.size}` : ''
-            }${g.size && g.condition ? ' • ' : ''}${g.condition ? `Condition: ${g.condition}` : ''}</div>
-            <div class="desc">${g.description || ''}</div>
+            <div class="size">${g.size ? `Size: ${g.size}` : ''}</div>
             <button class="btn btn-delete" data-id="${g.id}" style="margin-top:8px;background:#c00;">Delete</button>
           </article>
         `;

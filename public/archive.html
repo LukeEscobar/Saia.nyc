@@ -32,31 +32,40 @@
       container.innerHTML = data.map((g, idx) => {
         const altImage = getAltImage(g);
         const carouselId = `carousel-${idx}`;
+        const hasMultipleImages = altImage && altImage !== g.image1;
         return `
           <article class="card">
-            <img src="${g.image1}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
+            <div class="image-container">
+              <img src="${g.image1}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
+              ${hasMultipleImages ? `
+                <button class="carousel-arrow carousel-arrow-left" data-index="${idx}" data-direction="prev">‹</button>
+                <button class="carousel-arrow carousel-arrow-right" data-index="${idx}" data-direction="next">›</button>
+              ` : ''}
+            </div>
+            <div class="brand">${g.brand || ''}</div>
             <h3>${g.title}</h3>
-            <div class="meta">${
-              g.size ? `Size: ${g.size}` : ''
-            }${g.size && g.condition ? ' • ' : ''}${g.condition ? `Condition: ${g.condition}` : ''}</div>
-            <div class="desc">${g.description || ''}</div>
+            <div class="size">${g.size ? `Size: ${g.size}` : ''}</div>
           </article>
         `;
       }).join('');
 
-      // Hover logic
-      data.forEach((g, idx) => {
-        const carouselId = `carousel-${idx}`;
-        const el = document.getElementById(carouselId);
-        const altImage = getAltImage(g);
-        if (el && altImage && altImage !== g.image1) {
-          el.addEventListener('mouseenter', () => {
-            el.src = altImage;
-          });
-          el.addEventListener('mouseleave', () => {
-            el.src = g.image1;
-          });
-        }
+      // Click arrow logic
+      let currentImages = data.map(g => ({ current: g.image1, alt: getAltImage(g) }));
+      
+      document.querySelectorAll('.carousel-arrow').forEach(arrow => {
+        arrow.addEventListener('click', function(e) {
+          e.preventDefault();
+          const index = parseInt(this.getAttribute('data-index'));
+          const img = document.getElementById(`carousel-${index}`);
+          const imageData = currentImages[index];
+          
+          // Toggle between images
+          if (img.src.includes(imageData.current.split('/').pop())) {
+            img.src = imageData.alt;
+          } else {
+            img.src = imageData.current;
+          }
+        });
       });
     } catch (e) {
       document.getElementById('list').innerHTML = '<p>Unable to load garments.</p>';
