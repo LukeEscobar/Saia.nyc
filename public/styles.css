@@ -50,8 +50,7 @@ body.landing-bg {
 .site-header .logo {
   height: 569px;
   display: block;
-  margin: -200px 0 32px -60px;
-  filter: invert(1) brightness(2);
+  margin: -200px 0 32px 0;
 }
 
 /* Main container for scroll snap effect */
@@ -61,11 +60,11 @@ body.landing-bg {
   overflow-y: scroll;
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
-  scrollbar-width: none; /* Firefox */
+  /* scrollbar-width: none; */ /* Firefox */
 }
-#mainContainer::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
+/* #mainContainer::-webkit-scrollbar {
+  display: none;
+} */ /* Chrome, Safari, Opera */
 
 /* Fullscreen sections for scroll snap */
 .section-fullscreen {
@@ -95,7 +94,6 @@ body.landing-bg {
   text-align: center;
   outline: none;
   transition: background 0.2s;
-  margin-left: -65px;
 }
 #archivePassword.btn.btn-large:focus {
   background: #222;
@@ -105,6 +103,7 @@ body.landing-bg {
 }
 
 /* Scroll indicator arrow (moving arrow at bottom of index) */
+/*
 .scroll-indicator {
   margin-top: 210px;
   display: flex;
@@ -126,6 +125,7 @@ body.landing-bg {
   0%, 100% { transform: translateY(0);}
   50% { transform: translateY(10px);}
 }
+*/
 
 /* About/Contact/Social section */
 .bio {
@@ -163,10 +163,10 @@ body.landing-bg {
   padding: 0 40px;
   box-sizing: border-box;
 }
-.archive-navbar img,
+/* .archive-navbar img,
 .site-header .logo {
   filter: invert(1) brightness(2);
-}
+} */
 .archive-navbar img {
   height: 220px;
   width: auto;
