@@ -31,7 +31,7 @@ html, body {
 
 /* Index background image */
 body.landing-bg {
-  background: url('/images/frame2.png') no-repeat center center fixed;
+  background: url('/images/chrome-background.png') no-repeat center center fixed;
   background-size: cover;
   background-color: #fff;
   min-height: 100vh;
