@@ -105,19 +105,20 @@
     }
   });
 
+  // Remove the auto-scroll behavior that's causing issues
   // Optional: auto-scroll to about section on first scroll
-  let scrolled = false;
-  window.addEventListener('wheel', function(e) {
-    if (!scrolled && e.deltaY > 0) {
-      document.getElementById('aboutSection').scrollIntoView({behavior: 'smooth'});
-      scrolled = true;
-    }
-  }, {passive: true});
+  // let scrolled = false;
+  // window.addEventListener('wheel', function(e) {
+  //   if (!scrolled && e.deltaY > 0) {
+  //     document.getElementById('aboutSection').scrollIntoView({behavior: 'smooth'});
+  //     scrolled = true;
+  //   }
+  // }, {passive: true});
 
   // Make the moving arrow clickable to scroll to About Me
-  document.getElementById('scrollArrow').addEventListener('click', function() {
-    document.getElementById('aboutSection').scrollIntoView({behavior: 'smooth'});
-  });
+  // document.getElementById('scrollArrow').addEventListener('click', function() {
+  //   document.getElementById('aboutSection').scrollIntoView({behavior: 'smooth'});
+  // });
   </script>
 </body>
 </html>
