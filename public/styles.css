@@ -31,7 +31,7 @@ html, body {
 
 /* Index background image */
 body.landing-bg {
-  background: url('/images/chrome-background.png') no-repeat center center fixed;
+  background: url('/images/leather-bg2.jpeg') no-repeat center center fixed;
   background-size: cover;
   background-color: #fff;
   min-height: 100vh;
@@ -159,7 +159,7 @@ body.archive-bg {
   left: 0;
   width: 100%;
   height: 64px;
-  background: url('/images/chrome-background.png') no-repeat center 30%;
+  background: url('/images/leather-bg.jpeg') no-repeat center 80%;
   background-size: cover;
   border-bottom: 1px solid #eee;
   display: flex;
@@ -174,9 +174,9 @@ body.archive-bg {
   filter: invert(1) brightness(2);
 } */
 .archive-navbar img {
-  height: 220px;
+  height: 95px; /* 50% of 220px */
   width: auto;
-  margin-left: -75px;
+  margin-left: -35px;
   margin-top: 10px;
   filter: none;
 }
