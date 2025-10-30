@@ -48,7 +48,7 @@ body.landing-bg {
   align-items: center;
 }
 .site-header .logo {
-  height: 427px; /* 75% of 569px */
+  height: 200px; /* 75% of 569px */
   display: block;
   margin: -200px 0 32px 0;
 }
@@ -85,7 +85,7 @@ body.landing-bg {
 
 /* "Enter password" input styling */
 #archivePassword.btn.btn-large {
-  background: #111;
+  background: rgba(17, 17, 17, 0.7); /* Changed from #111 to semi-transparent */
   color: #fff;
   border: none;
   border-radius: 11px;
@@ -96,10 +96,10 @@ body.landing-bg {
   transition: background 0.2s;
 }
 #archivePassword.btn.btn-large:focus {
-  background: #222;
+  background: rgba(34, 34, 34, 0.8); /* Changed from #222 to semi-transparent */
 }
 #archiveLoginForm {
-  margin-top: -150px;
+  margin-top: -50px; /* changed from -150px to -50px */
 }
 
 /* Scroll indicator arrow (moving arrow at bottom of index) */
