@@ -24,6 +24,13 @@
           autofocus
         />
       </form>
+      <!-- <div class="scroll-indicator">
+        <div style="margin-top:8px; cursor:pointer;" id="scrollArrow">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+            <path d="M12 16l-6-6h12l-6 6z" fill="#fff"/>
+          </svg>
+        </div>
+      </div> -->
     </section>
     <section class="section-fullscreen section-white" id="aboutSection">
       <div style="max-width:900px;width:100%;text-align:center;padding:0 20px;font-family:Helvetica,Arial,sans-serif;">
@@ -112,42 +119,6 @@
   // document.getElementById('scrollArrow').addEventListener('click', function() {
   //   document.getElementById('aboutSection').scrollIntoView({behavior: 'smooth'});
   // });
-
-  // Add this mobile detection and scroll fix
-  function isMobile() {
-    return window.innerWidth <= 700 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  }
-
-  // Disable scroll snap on mobile completely
-  if (isMobile()) {
-    const mainContainer = document.getElementById('mainContainer');
-    const sections = document.querySelectorAll('.section-fullscreen');
-    
-    // Remove all scroll snap properties
-    mainContainer.style.scrollSnapType = 'none';
-    mainContainer.style.height = 'auto';
-    mainContainer.style.overflowY = 'auto';
-    
-    sections.forEach(section => {
-      section.style.scrollSnapAlign = 'none';
-      section.style.height = 'auto';
-      section.style.minHeight = 'auto';
-    });
-    
-    // Keep the first section (landing) full height
-    if (sections[0]) {
-      sections[0].style.minHeight = '100vh';
-      sections[0].style.height = '100vh';
-    }
-    
-    // Make about section natural height
-    const aboutSection = document.getElementById('aboutSection');
-    if (aboutSection) {
-      aboutSection.style.height = 'auto';
-      aboutSection.style.minHeight = 'auto';
-      aboutSection.style.padding = '40px 0 60px 0';
-    }
-  }
   </script>
 </body>
 </html>
