@@ -508,6 +508,33 @@ body.archive-bg {
    RESPONSIVE STYLES
    ========================= */
 @media (max-width: 700px) {
+  /* Mobile font sizing for About section */
+  #aboutSection h2 {
+    font-size: 1.35rem !important; /* Reduced from 2rem */
+    margin-bottom: 20px !important;
+  }
+  
+  #aboutSection h3 {
+    font-size: 1.05rem !important; /* Reduced from 1.25rem */
+    margin-bottom: 10px !important;
+  }
+  
+  #aboutSection p {
+    font-size: 0.9rem !important; /* Reduced from 1.1rem and default */
+    line-height: 1.4 !important; /* Tighter line spacing */
+    margin-bottom: 16px !important; /* Reduced margins */
+  }
+  
+  #aboutSection div {
+    max-width: 95% !important; /* Use more screen width */
+    padding: 0 15px !important;
+  }
+  
+  /* Compact spacing for mobile */
+  #aboutSection .section-fullscreen {
+    padding: 20px 0 40px 0 !important;
+  }
+
   .archive-navbar {
     height: 48px;
     padding: 0 12px;
