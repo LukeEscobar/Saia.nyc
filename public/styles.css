@@ -531,8 +531,52 @@ body.archive-bg {
   }
   
   /* Compact spacing for mobile */
-  #aboutSection .section-fullscreen {
-    padding: 20px 0 40px 0 !important;
+  #aboutSection.section-fullscreen {
+    padding: 0 !important; /* Remove all padding */
+    margin-top: 0 !important; /* Remove margin */
+    background: #fff !important; /* Force white background */
+    position: relative !important;
+    z-index: 2 !important; /* Ensure it's above the background */
+  }
+  
+  /* Add padding to the inner div instead */
+  #aboutSection div {
+    padding: 20px 15px 40px 15px !important;
+    background: #fff !important;
+  }
+
+  /* Fix awkward section breaks on mobile */
+  body.landing-bg {
+    height: auto !important; /* Allow natural height */
+    overflow: visible !important; /* Allow normal scrolling */
+  }
+  
+  /* Fix scroll snap on mobile */
+  #mainContainer {
+    scroll-snap-type: none; /* Disable scroll snap on mobile */
+    height: auto !important; /* Allow natural height */
+    overflow-y: visible !important; /* Allow normal scrolling */
+  }
+  
+  .section-fullscreen {
+    scroll-snap-align: none;
+    min-height: auto !important; /* Remove fixed height on mobile */
+    height: auto !important; /* Allow natural content height */
+  }
+  
+  /* Make the landing section take appropriate space */
+  .section-fullscreen:first-child {
+    min-height: 100vh !important; /* Keep first section full height for the password form */
+    margin-bottom: 0 !important; /* Remove any bottom margin */
+  }
+  
+  /* Ensure white section completely covers background */
+  .section-white {
+    background: #fff !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
   }
 
   .archive-navbar {
@@ -560,15 +604,6 @@ body.archive-bg {
   }
   .card img {
     height: 180px;
-  }
-  
-  /* Fix scroll snap on mobile */
-  #mainContainer {
-    scroll-snap-type: none; /* Disable scroll snap on mobile */
-  }
-  .section-fullscreen {
-    scroll-snap-align: none;
-    min-height: auto; /* Allow natural height on mobile */
   }
 }
 
