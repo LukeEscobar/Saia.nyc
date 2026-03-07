@@ -50,21 +50,16 @@
       }).join('');
 
       // Click arrow logic
-      let currentImages = data.map(g => ({ current: g.image1, alt: getAltImage(g) }));
-      
+      let currentImageIndex = data.map(() => 0);
+
       document.querySelectorAll('.carousel-arrow').forEach(arrow => {
         arrow.addEventListener('click', function(e) {
           e.preventDefault();
           const index = parseInt(this.getAttribute('data-index'));
           const img = document.getElementById(`carousel-${index}`);
-          const imageData = currentImages[index];
-          
-          // Toggle between images
-          if (img.src.includes(imageData.current.split('/').pop())) {
-            img.src = imageData.alt;
-          } else {
-            img.src = imageData.current;
-          }
+          const images = [data[index].image1, getAltImage(data[index])];
+          currentImageIndex[index] = 1 - currentImageIndex[index];
+          img.src = images[currentImageIndex[index]];
         });
       });
     } catch (e) {

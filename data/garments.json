@@ -1,130 +1,98 @@
 [
   {
     "id": "g1",
-    "brand": "Saia",
-    "title": "Sample Jacket",
-    "size": "M",
-    "image1": "/images/sample-jacket.jpg",
-    "image2": "/images/trenchcoat-sample.jpg"
+    "brand": "Luar",
+    "title": "Small Handbag",
+    "size": "One Size",
+    "image1": "/images/Garments/Luar - Small Handbag.JPG",
+    "image2": "/images/Garments/Luar - Small Handbag.JPG"
   },
   {
     "id": "g2",
-    "brand": "Saia",
-    "title": "Experimental Coat",
-    "size": "L",
-    "image1": "/images/experimental-coat.png",
-    "image2": "/images/sample-woolsweater.jpg"
+    "brand": "Luar",
+    "title": "Knee High Boots",
+    "size": "41",
+    "image1": "/images/Garments/Luar - Size 41 Knee Length.JPG",
+    "image2": "/images/Garments/Luar - Size 41 Knee Length.JPG"
   },
   {
     "id": "g3",
-    "brand": "Saia",
-    "title": "Classic Trench",
-    "size": "M",
-    "image1": "/images/trenchcoat-sample.jpg",
-    "image2": "/images/denimshirt-sample.jpg"
+    "brand": "Luar",
+    "title": "Large Handbag",
+    "size": "One Size",
+    "image1": "/images/Garments/Luar - Large Handbag.JPG",
+    "image2": "/images/Garments/Luar - Large Handbag.JPG"
   },
   {
     "id": "g4",
-    "brand": "Saia",
-    "title": "Denim Shirt",
-    "size": "S",
-    "image1": "/images/denimshirt-sample.jpg",
-    "image2": "/images/sample-corduroypants.jpg"
+    "brand": "Luar",
+    "title": "Thigh High Boots",
+    "size": "41",
+    "image1": "/images/Garments/Luar - Size 41.JPG",
+    "image2": "/images/Garments/Luar - Size 41.JPG"
   },
   {
     "id": "g5",
-    "brand": "Saia",
-    "title": "Wool Sweater",
-    "size": "L",
-    "image1": "/images/sample-woolsweater.jpg",
-    "image2": "/images/sample-silkblouse.jpg"
+    "brand": "Luar",
+    "title": "Jeans",
+    "size": "30",
+    "image1": "/images/Garments/Luar - size 30.JPG",
+    "image2": "/images/Garments/Luar - Size 30 (back).JPG"
   },
   {
     "id": "g6",
-    "brand": "Saia",
-    "title": "Corduroy Pants",
-    "size": "M",
-    "image1": "/images/sample-corduroypants.jpg",
-    "image2": "/images/sample-puffervest.jpg"
+    "brand": "Luar",
+    "title": "Jeans",
+    "size": "34",
+    "image1": "/images/Garments/Luar - Size 34.JPG",
+    "image2": "/images/Garments/Luar - Size 34 (back).JPG"
   },
   {
     "id": "g7",
-    "brand": "Saia",
-    "title": "Silk Blouse",
-    "size": "S",
-    "image1": "/images/sample-silkblouse.jpg",
-    "image2": "/images/sample-jacket.jpg"
+    "brand": "Luar",
+    "title": "Blazer",
+    "size": "Medium",
+    "image1": "/images/Garments/Luar - Size Medium Blazer.JPG",
+    "image2": "/images/Garments/Luar - Size Medium Blazer.JPG"
   },
   {
     "id": "g8",
-    "brand": "Saia",
-    "title": "Puffer Vest",
-    "size": "L",
-    "image1": "/images/sample-puffervest.jpg",
-    "image2": "/images/experimental-coat.png"
+    "brand": "Luar",
+    "title": "Trouser",
+    "size": "Medium",
+    "image1": "/images/Garments/Luar - Size Medium Trouser.JPG",
+    "image2": "/images/Garments/Luar - Size Medium Trouser.JPG"
   },
   {
     "id": "g9",
-    "brand": "Saia",
-    "title": "Vintage Jacket",
-    "size": "M",
-    "image1": "/images/sample-jacket.jpg",
-    "image2": "/images/trenchcoat-sample.jpg"
+    "brand": "Luar",
+    "title": "Jacket",
+    "size": "Medium",
+    "image1": "/images/Garments/Luar - Medium.JPG",
+    "image2": "/images/Garments/Luar - Medium.JPG"
   },
   {
     "id": "g10",
-    "brand": "Saia",
-    "title": "Modern Coat",
-    "size": "L",
-    "image1": "/images/experimental-coat.png",
-    "image2": "/images/sample-woolsweater.jpg"
+    "brand": "Luar",
+    "title": "Pant",
+    "size": "Medium",
+    "image1": "/images/Garments/Luar - Size Medium Pant.JPG",
+    "image2": "/images/Garments/Luar - Size Medium Pant.JPG"
   },
   {
     "id": "g11",
-    "brand": "Saia",
-    "title": "Rain Trench",
-    "size": "M",
-    "image1": "/images/trenchcoat-sample.jpg",
-    "image2": "/images/denimshirt-sample.jpg"
+    "brand": "Luar",
+    "title": "Jacket",
+    "size": "Medium",
+    "image1": "/images/Garments/Luar - Size Medium.JPG",
+    "image2": "/images/Garments/Luar - Size Medium.JPG"
   },
   {
     "id": "g12",
-    "brand": "Saia",
-    "title": "Chambray Shirt",
-    "size": "S",
-    "image1": "/images/denimshirt-sample.jpg",
-    "image2": "/images/sample-corduroypants.jpg"
-  },
-  {
-    "id": "g13",
-    "brand": "Saia",
-    "title": "Cashmere Sweater",
-    "size": "L",
-    "image1": "/images/sample-woolsweater.jpg",
-    "image2": "/images/sample-silkblouse.jpg"
-  },
-  {
-    "id": "g14",
-    "brand": "Saia",
-    "title": "Slim Corduroy",
-    "size": "M",
-    "image1": "/images/sample-corduroypants.jpg",
-    "image2": "/images/sample-puffervest.jpg"
-  },
-  {
-    "id": "g15",
-    "brand": "Saia",
-    "title": "Satin Blouse",
-    "size": "S",
-    "image1": "/images/sample-silkblouse.jpg",
-    "image2": "/images/sample-jacket.jpg"
-  },
-  {
-    "id": "g16",
-    "brand": "Saia",
-    "title": "Down Vest",
-    "size": "L",
-    "image1": "/images/sample-puffervest.jpg",
-    "image2": "/images/experimental-coat.png"
+    "brand": "Luar",
+    "title": "Ostrich Leather Trench",
+    "size": "Runway Sample",
+    "image1": "/images/Garments/Luar - Runway Sample.JPG",
+    "image2": "/images/Garments/Luar - Runway Sample.JPG"
   }
 ]

@@ -300,7 +300,15 @@ const server = http.createServer((req, res) => {
   }
 
   // serve other static files from public
-  const tryPath = path.join(__dirname, 'public', pathname.replace(/^\//, ''));
+  let decodedPathname;
+  try { decodedPathname = decodeURIComponent(pathname); } catch (e) { decodedPathname = pathname; }
+  const tryPath = path.join(__dirname, 'public', decodedPathname.replace(/^\//, ''));
+  // Prevent path traversal
+  if (!tryPath.startsWith(path.join(__dirname, 'public'))) {
+    res.writeHead(403, {'Content-Type': 'text/plain'});
+    res.end('Forbidden');
+    return;
+  }
   if (fs.existsSync(tryPath) && fs.statSync(tryPath).isFile()) {
     sendFile(res, tryPath);
     return;
