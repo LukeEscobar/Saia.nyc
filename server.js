@@ -5,7 +5,7 @@ const url = require('url');
 const crypto = require('crypto');
 
 const PORT = process.env.PORT || 3000;
-const PASSWORD = process.env.PASSWORD || 'letmein'; // change via env for production
+const PASSWORD = process.env.PASSWORD || '2705D'; // change via env for production
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123'; // admin password
 
 const sessions = new Map(); // sessionId -> {created, admin: bool}
