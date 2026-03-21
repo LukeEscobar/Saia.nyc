@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /archive
+Disallow: /archive.html
+Disallow: /admin.html
+Disallow: /login
+Disallow: /api/
+
+Sitemap: https://saia.nyc/sitemap.xml
