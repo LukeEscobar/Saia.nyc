@@ -35,7 +35,7 @@
 
   async function load() {
     try {
-      const res = await fetch('/api/garments');
+      const res = await fetch('/data/garments.json');
       if (!res.ok) throw new Error('failed');
       const data = await res.json();
       const container = document.getElementById('list');

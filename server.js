@@ -134,11 +134,6 @@ const server = http.createServer((req, res) => {
   }
 
   if (pathname === '/archive' || pathname === '/archive.html') {
-    if (!isAuthenticated(req)) {
-      res.writeHead(302, {'Location': '/login'});
-      res.end();
-      return;
-    }
     sendFile(res, path.join(__dirname, 'public', 'archive.html'));
     return;
   }
@@ -264,11 +259,6 @@ const server = http.createServer((req, res) => {
     }
 
     if (pathname === '/api/garments') {
-      if (!isAuthenticated(req)) {
-        res.writeHead(401, {'Content-Type': 'application/json'});
-        res.end(JSON.stringify({error: 'unauthorized'}));
-        return;
-      }
       sendFile(res, path.join(__dirname, 'data', 'garments.json'));
       return;
     }

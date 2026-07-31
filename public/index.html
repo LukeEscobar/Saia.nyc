@@ -28,119 +28,147 @@
   <link rel="icon" type="image/png" href="/images/saia-tab.png" />
 </head>
 <body class="landing-bg">
-  <div id="mainContainer">
-    <section class="section-fullscreen" style="background:transparent;">
-      <header class="site-header">
-        <img src="/images/diamond-logo.png" class="logo" alt="Saia logo" />
-      </header>
-      <form id="archiveLoginForm" style="display:flex;flex-direction:column;align-items:center;gap:16px;min-width:260px;">
-        <input
-          id="archivePassword"
-          name="password"
-          type="password"
-          placeholder="Enter password"
-          class="btn btn-large"
-          style="width:100%;max-width:320px;position:relative;z-index:2;text-align:center;"
-          autofocus
-        />
-      </form>
-      <!-- <div class="scroll-indicator">
-        <div style="margin-top:8px; cursor:pointer;" id="scrollArrow">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-            <path d="M12 16l-6-6h12l-6 6z" fill="#fff"/>
-          </svg>
+
+  <!-- Fixed top transparent nav -->
+  <nav class="top-nav" id="topNav">
+    <div class="top-nav-inner">
+      <div class="top-nav-left"></div>
+      <div class="top-nav-right">
+        <button class="top-nav-link mobile-info-btn" id="openInfo">INFO</button>
+        <button class="top-nav-link" id="openAbout">ABOUT</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Info full-screen overlay (mobile only) -->
+  <div class="info-overlay" id="infoOverlay" aria-hidden="true">
+    <button class="info-close" id="closeInfo" aria-label="Close info">&times;</button>
+    <div class="info-overlay-content">
+      <p class="about-body">Saia is a sample representation agency with a private showroom and styling studio in New York City. We operate as a multi-functional fashion space designed to support both brands and stylists through a service-driven approach that prioritizes efficiency and elevated presentation, created to function as both a creative workspace and a client-facing environment.</p>
+      <p class="about-body">Saia was started with the intention to create a streamlined and intentional experience tailored to the evolving needs of the fashion industry. We offer a highly curated setting where brands can engage directly with consumers and industry professionals, while stylists and creative teams are provided with the tools, support, and flexibility needed to execute projects seamlessly.</p>
+    </div>
+  </div>
+
+  <!-- About full-screen overlay -->
+  <div class="about-overlay" id="aboutOverlay" aria-hidden="true">
+    <button class="about-close" id="closeAbout" aria-label="Close about">&times;</button>
+    <div class="about-overlay-content">
+      <div class="about-photo-col">
+        <img src="/images/BioPicLauren.jpg" alt="Lauren Ferreira — Founder, SAIA NYC" class="about-photo" />
+      </div>
+      <div class="about-bio-col">
+        <h1 class="about-name">Lauren<br>Ferreira</h1>
+        <p class="about-title">Founder &amp; Creative Director</p>
+        <p class="about-subtitle">Azorean American Stylist &amp; Producer<br>New York City</p>
+
+        <p class="about-body">Lauren got her start as Drake's wardrobe assistant from 2017 to 2020, including a North American and European Tour.</p>
+
+        <p class="about-body">She currently leads Nike's first Global Design Research Project Initiative, sourcing stylists worldwide to gather insights for international markets.</p>
+
+        <p class="about-body">Most recently, Lauren served as a consultant for ESSX, where she conceived, built, and launched their Styling Studio — establishing relationships with celebrity stylists whose clients include Drake, Bad Bunny, Young Miko, Metro Boomin, Jhayco, Jim Jones, Queen Latifah, Peso Pluma, Tems, Sexyy Red, 21 Savage, Kai Cenat, Kim Kardashian, Coi Leray, Gunna, Jared Leto, NBA YoungBoy, Baby Keem, Stefon Diggs, Lil Nas X, and more.</p>
+
+
+        <div class="about-section">
+          <h4 class="about-section-label">Press</h4>
+          <p class="about-credits">Architectural Digest &nbsp;&middot;&nbsp; Dazed Magazine &nbsp;&middot;&nbsp; Interview Magazine &nbsp;&middot;&nbsp; Wonderland &nbsp;&middot;&nbsp; Off the Rails &nbsp;&middot;&nbsp; One Magazine</p>
         </div>
-      </div> -->
-    </section>
-    <section class="section-fullscreen section-white" id="aboutSection">
-      <div style="max-width:900px;width:100%;text-align:center;padding:0 20px;font-family:Helvetica,Arial,sans-serif;">
-        <h2 style="font-size:2rem;margin-bottom:24px;font-family:Helvetica,Arial,sans-serif;font-weight:bold;">About</h2>
+
+        <div class="about-section">
+          <h4 class="about-section-label">Brand Clients</h4>
+          <p class="about-credits">Nike &nbsp;&middot;&nbsp; Fendi &nbsp;&middot;&nbsp; Versace &nbsp;&middot;&nbsp; Adidas &nbsp;&middot;&nbsp; New Balance &nbsp;&middot;&nbsp; Asics &nbsp;&middot;&nbsp; OVO &nbsp;&middot;&nbsp; The North Face &nbsp;&middot;&nbsp; Verizon &nbsp;&middot;&nbsp; NFL &nbsp;&middot;&nbsp; Complex &nbsp;&middot;&nbsp; Parade &nbsp;&middot;&nbsp; Awake &nbsp;&middot;&nbsp; Procell &nbsp;&middot;&nbsp; CNCPTS &nbsp;&middot;&nbsp; Alo &nbsp;&middot;&nbsp; Hollister &nbsp;&middot;&nbsp; Jordan &nbsp;&middot;&nbsp; Kith</p>
+        </div>
+
         
-        <p style="margin-bottom:20px;line-height:1.5;font-size:1.1rem;font-family:Helvetica,Arial,sans-serif;font-weight:300;">
-          We operate as a seasonless sample showroom and stylist concierge studio dedicated exclusively to strategic placement.
-        </p>
-        
-        <p style="margin-bottom:24px;line-height:1.5;color:#666;font-family:Helvetica,Arial,sans-serif;font-weight:300;">
-          At the heart of our mission is the commitment to maximizing the lifecycle and return on investment of every sample we represent. Through strategic, high-impact placements, followed by curated sample sales, we transform each piece into both a publicity driver and a revenue-generating asset.
-        </p>
-        
-        <h3 style="margin-bottom:12px;font-size:1.25rem;font-weight:bold;color:#111;font-family:Helvetica,Arial,sans-serif;">What We Offer Stylists</h3>
-        <p style="margin-bottom:24px;line-height:1.5;color:#555;font-family:Helvetica,Arial,sans-serif;font-weight:300;">
-          Our in-house stylist studio provides a dedicated space for fittings and style-outs, supported by concierge services tailored to the needs of professional stylists. Our style studio being located in close proximity to the full sample collections, provides stylists with convenient, immediate access for efficient style-outs and fittings.
-        </p>
-        
-        <h3 style="margin-bottom:12px;font-size:1.25rem;font-weight:bold;color:#111;font-family:Helvetica,Arial,sans-serif;">What We Offer Brands</h3>
-        <p style="margin-bottom:24px;line-height:1.5;color:#555;font-family:Helvetica,Arial,sans-serif;font-weight:300;">
-          We provide archival sample placement that maintains brand visibility year-round. Our seasonless model ensures extended impact beyond the traditional fashion calendar.
-        </p>
-        
-        <h3 style="margin-bottom:12px;font-size:1.25rem;font-weight:bold;color:#111;font-family:Helvetica,Arial,sans-serif;">Sample Sales</h3>
-        <p style="margin-bottom:32px;line-height:1.5;color:#555;font-family:Helvetica,Arial,sans-serif;font-weight:300;">
-          After each placement cycle, we host curated sample sales that give every piece its second return on investment. We offer our brand partners a dual value: elevated visibility and measurable financial return.
-        </p>
-        
-        <h3 style="margin-bottom:8px;font-size:1.1rem;font-weight:bold;font-family:Helvetica,Arial,sans-serif;">Contact</h3>
-        <p style="margin-bottom:16px;font-family:Helvetica,Arial,sans-serif;font-weight:300;color:#111;">
-          lauren@saia.nyc
-        </p>
+        <div class="about-section about-section-last">
+        </div>
       </div>
-    </section>
-    <footer class="site-footer">
-      <div class="site-footer-inner">
-        <img src="/images/diamond-logo.png" alt="Saia" class="footer-logo" />
-        <nav class="footer-links">
-          <a href="mailto:lauren@saia.nyc">lauren@saia.nyc</a>
-          <span class="footer-divider">|</span>
-          <a href="https://www.instagram.com/saia.nyc/" target="_blank" rel="noopener">Instagram</a>
-          <span class="footer-divider">|</span>
-          <a href="https://www.tiktok.com/@saia.nyc" target="_blank" rel="noopener">TikTok</a>
-        </nav>
-        <p class="footer-copy">&copy; 2026 Saia NYC. All rights reserved.</p>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-content">
+      <img src="/images/diamond-logo.png" class="hero-logo" alt="Saia NYC" />
+      <div class="hero-middle">
+          <div class="hero-extra-info">
+            <div class="hero-rule"></div>
+            <p class="hero-desc">Saia is a sample representation agency with a private showroom and styling studio in New York City. We operate as a multi-functional fashion space designed to support both brands and stylists through a service-driven approach that prioritizes efficiency and elevated presentation, created to function as both a creative workspace and a client-facing environment.</p>
+          </div>
+        <p class="services-label">Our Services:</p>
+        <div class="features-list">
+          <span>Year round sample representation</span>
+          <span>Fitting &amp; style out studio</span>
+          <span>Private retail activations</span>
+          <span>Curated sample sales</span>
+          <span>Collection/press previews</span>
+          <span>Gifting suite support</span>
+        </div>
+        <div class="hero-extra-info">
+          <p class="hero-desc">Saia was started with the intention to create a streamlined and intentional experience tailored to the evolving needs of the fashion industry. We offer a highly curated setting where brands can engage directly with consumers and industry professionals, while stylists and creative teams are provided with the tools, support, and flexibility needed to execute projects seamlessly.</p>
+        </div>
       </div>
-    </footer>  </div>
+      <div class="mobile-hero-nav">
+        <button class="mobile-hero-info" id="openInfoHero">INFO</button>
+        <button class="mobile-hero-about" id="openAboutHero">ABOUT</button>
+      </div>
+      <a href="/archive" class="btn-showroom">DIGITAL SHOWROOM</a>
+    </div>
+  </div>
+
+  <!-- Fixed bottom nav -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-contact">
+      <span class="bottom-nav-label">CONTACT</span>
+      <a href="mailto:lauren@saia.nyc" class="bottom-nav-link">lauren@saia.nyc</a>
+    </div>
+    <div class="bottom-nav-social">
+      <a href="https://www.instagram.com/saia.nyc/" target="_blank" rel="noopener" class="bottom-nav-link">INSTAGRAM</a>
+      <span class="bottom-nav-dash">—</span>
+      <a href="https://www.tiktok.com/@saia.nyc" target="_blank" rel="noopener" class="bottom-nav-link">TIKTOK</a>
+    </div>
+    <div class="bottom-nav-copy">&copy; 2026 Saia NYC. All rights reserved.</div>
+  </nav>
   <script>
-  const archiveLoginForm = document.getElementById('archiveLoginForm');
-  const archivePassword = document.getElementById('archivePassword');
+  // About overlay
+  const openAboutBtn = document.getElementById('openAbout');
+  const closeAboutBtn = document.getElementById('closeAbout');
+  const aboutOverlay = document.getElementById('aboutOverlay');
+  const openInfoBtn = document.getElementById('openInfo');
+  const closeInfoBtn = document.getElementById('closeInfo');
+  const infoOverlay = document.getElementById('infoOverlay');
+  const openInfoHeroBtn = document.getElementById('openInfoHero');
+  const openAboutHeroBtn = document.getElementById('openAboutHero');
 
-  archiveLoginForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const pw = archivePassword.value;
-    const res = await fetch('/login', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: 'password=' + encodeURIComponent(pw)
-    });
-    if (res.redirected && res.url && !res.url.includes('failed=1')) {
-      window.location.href = res.url;
-    } else {
-      archivePassword.classList.add('shake');
-      archivePassword.select();
-      setTimeout(() => {
-        archivePassword.classList.remove('shake');
-      }, 500);
+  function openAbout() {
+    aboutOverlay.classList.add('active');
+    aboutOverlay.setAttribute('aria-hidden', 'false');
+  }
+  function closeAbout() {
+    aboutOverlay.classList.remove('active');
+    aboutOverlay.setAttribute('aria-hidden', 'true');
+  }
+  function openInfo() {
+    infoOverlay.classList.add('active');
+    infoOverlay.setAttribute('aria-hidden', 'false');
+  }
+  function closeInfo() {
+    infoOverlay.classList.remove('active');
+    infoOverlay.setAttribute('aria-hidden', 'true');
+  }
+
+  openAboutBtn.addEventListener('click', openAbout);
+  closeAboutBtn.addEventListener('click', closeAbout);
+  openInfoBtn.addEventListener('click', openInfo);
+  closeInfoBtn.addEventListener('click', closeInfo);
+  openInfoHeroBtn.addEventListener('click', openInfo);
+  openAboutHeroBtn.addEventListener('click', openAbout);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (aboutOverlay.classList.contains('active')) closeAbout();
+      if (infoOverlay.classList.contains('active')) closeInfo();
     }
   });
-
-  archivePassword.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      archiveLoginForm.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true}));
-    }
-  });
-
-  // Remove the auto-scroll behavior that's causing issues
-  // Optional: auto-scroll to about section on first scroll
-  // let scrolled = false;
-  // window.addEventListener('wheel', function(e) {
-  //   if (!scrolled && e.deltaY > 0) {
-  //     document.getElementById('aboutSection').scrollIntoView({behavior: 'smooth'});
-  //     scrolled = true;
-  //   }
-  // }, {passive: true});
-
-  // Make the moving arrow clickable to scroll to About Me
-  // document.getElementById('scrollArrow').addEventListener('click', function() {
-  //   document.getElementById('aboutSection').scrollIntoView({behavior: 'smooth'});
-  // });
   </script>
 </body>
 </html>
