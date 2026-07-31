@@ -873,10 +873,19 @@ body.archive-bg {
     padding-top: 0;
   }
   .features-list {
-    max-width: 310px;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    line-height: 1.8;
+    gap: 2px;
   }
   .features-list span {
     font-size: 0.6rem;
+    white-space: normal;
+    text-align: center;
+  }
+  .features-list span:not(:last-child)::after {
+    display: none;
   }
   .image-ticker-wrap {
     bottom: 46px;
