@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>SAIA NYC — Admin</title>
   <meta name="robots" content="noindex, nofollow" />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=20261016-1" />
   <link rel="icon" type="image/png" href="/images/saia-tab.png" />
 </head>
 <body class="archive-bg">
@@ -152,7 +152,7 @@
 
     async function load() {
       try {
-        const res = await fetch('/data/garments.json');
+        const res = await fetch('/data/garments.json?v=20261016-1');
         if (!res.ok) throw new Error('failed');
         const data = await res.json();
         currentGarments = data.slice(); // Copy for local order tracking

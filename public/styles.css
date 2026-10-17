@@ -277,6 +277,52 @@ body.archive-bg {
   align-items: start;
   margin-top: 24px;
 }
+.archive-brand-section + .archive-brand-section {
+  margin-top: 36px;
+  padding-top: 36px;
+  border-top: 1px solid #e8e5e2;
+}
+.archive-brand-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 84px;
+  margin: 0;
+  padding: 0 24px;
+}
+.archive-brand-heading h2 {
+  margin: 0;
+  color: #222;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.brand-logo {
+  display: block;
+  width: auto;
+  max-width: min(100%, 320px);
+  max-height: 72px;
+  object-fit: contain;
+}
+.brand-logo[src*="Apparis"] {
+  width: 240px;
+  height: 76px;
+  object-fit: cover;
+  object-position: center;
+}
+.archive-brand-section .grid {
+  margin-top: 24px;
+}
+.archive-brand-section .card .image-container {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.archive-brand-section .card img {
+  margin-bottom: 0;
+}
 .card {
   background: #fff;
   border: none;

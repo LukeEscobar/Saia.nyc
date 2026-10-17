@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>SAIA NYC — Archive</title>
   <meta name="robots" content="noindex, nofollow" />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=20261016-1" />
   <link rel="icon" type="image/png" href="/images/saia-tab.png" />
 </head>
 <body class="archive-bg">
@@ -13,7 +13,7 @@
     <a href="/"><img src="/images/diamond-logo.png" alt="Saia logo"></a>
   </nav>
   <main class="archive-container">
-    <section id="list" class="grid"></section>
+    <div id="list"></div>
   </main>
   <footer class="site-footer">
     <div class="site-footer-inner">
@@ -35,43 +35,64 @@
 
   async function load() {
     try {
-      const res = await fetch('/data/garments.json');
+      const res = await fetch('/data/garments.json?v=20261016-1');
       if (!res.ok) throw new Error('failed');
       const data = await res.json();
+      const garments = data.filter(g => (g.brand || '').toLowerCase() !== 'menyelek');
       const container = document.getElementById('list');
-      if (!data.length) {
+      if (!garments.length) {
         container.innerHTML = '<p>No garments available.</p>';
         return;
       }
-      container.innerHTML = data.map((g, idx) => {
-        const altImage = getAltImage(g);
-        const carouselId = `carousel-${idx}`;
-        const hasMultipleImages = altImage && altImage !== g.image1;
+      const brands = [...new Set(garments.map(g => g.brand || 'Other'))];
+      const brandLogos = {
+        Apparis: '/images/Brand%20Logos/Apparis%20LOGO.png',
+        'Ben Doctor': '/images/Brand%20Logos/Ben%20Doctor%20LOGO.png',
+        Luar: '/images/Brand%20Logos/Luar%20LOGO.png',
+        Masiah: '/images/Brand%20Logos/Masiah%20LOGO.png',
+        'Petra Stellam': '/images/Brand%20Logos/Petra%20Stellam%20logo.png'
+      };
+      container.innerHTML = brands.map(brand => {
+        const brandGarments = garments
+          .map((garment, index) => ({garment, index}))
+          .filter(({garment}) => (garment.brand || 'Other') === brand);
+        const cards = brandGarments.map(({garment: g, index: idx}) => {
+          const altImage = getAltImage(g);
+          const carouselId = `carousel-${idx}`;
+          const hasMultipleImages = altImage && altImage !== g.image1;
+          return `
+            <article class="card">
+              <div class="image-container">
+                <img src="${g.image1}" alt="${brand} garment" class="carousel-img" id="${carouselId}" />
+                ${hasMultipleImages ? `
+                  <button class="carousel-arrow carousel-arrow-left" aria-label="Show previous image" data-index="${idx}" data-direction="prev">‹</button>
+                  <button class="carousel-arrow carousel-arrow-right" aria-label="Show next image" data-index="${idx}" data-direction="next">›</button>
+                ` : ''}
+              </div>
+            </article>
+          `;
+        }).join('');
         return `
-          <article class="card">
-            <div class="image-container">
-              <img src="${g.image1}" alt="${g.title}" class="carousel-img" id="${carouselId}" />
-              ${hasMultipleImages ? `
-                <button class="carousel-arrow carousel-arrow-left" data-index="${idx}" data-direction="prev">‹</button>
-                <button class="carousel-arrow carousel-arrow-right" data-index="${idx}" data-direction="next">›</button>
-              ` : ''}
+          <section class="archive-brand-section">
+            <div class="archive-brand-heading">
+              ${brandLogos[brand]
+                ? `<img class="brand-logo" src="${brandLogos[brand]}" alt="${brand} logo" />`
+                : `<h2>${brand}</h2>`}
             </div>
-            <div class="brand">${g.brand || ''}</div>
-            <h3>${g.title}</h3>
-            <div class="size">${g.size ? `Size: ${g.size}` : ''}</div>
-          </article>
+            <div class="grid">${cards}</div>
+          </section>
         `;
       }).join('');
 
       // Click arrow logic
-      let currentImageIndex = data.map(() => 0);
+      let currentImageIndex = garments.map(() => 0);
 
       document.querySelectorAll('.carousel-arrow').forEach(arrow => {
         arrow.addEventListener('click', function(e) {
           e.preventDefault();
           const index = parseInt(this.getAttribute('data-index'));
           const img = document.getElementById(`carousel-${index}`);
-          const images = [data[index].image1, getAltImage(data[index])];
+          const images = [garments[index].image1, getAltImage(garments[index])];
           currentImageIndex[index] = 1 - currentImageIndex[index];
           img.src = images[currentImageIndex[index]];
         });
