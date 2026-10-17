@@ -305,6 +305,10 @@ body.archive-bg {
   max-height: 72px;
   object-fit: contain;
 }
+.brand-logo[src*="Masiah"] {
+  max-width: min(100%, 416px);
+  max-height: 94px;
+}
 .brand-logo[src*="Apparis"] {
   width: 240px;
   height: 76px;

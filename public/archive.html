@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>SAIA NYC — Archive</title>
   <meta name="robots" content="noindex, nofollow" />
-  <link rel="stylesheet" href="/styles.css?v=20261016-1" />
+  <link rel="stylesheet" href="/styles.css?v=20261017-1" />
   <link rel="icon" type="image/png" href="/images/saia-tab.png" />
 </head>
 <body class="archive-bg">
@@ -35,7 +35,7 @@
 
   async function load() {
     try {
-      const res = await fetch('/data/garments.json?v=20261016-1');
+      const res = await fetch('/data/garments.json?v=20261017-1');
       if (!res.ok) throw new Error('failed');
       const data = await res.json();
       const garments = data.filter(g => (g.brand || '').toLowerCase() !== 'menyelek');
@@ -44,7 +44,10 @@
         container.innerHTML = '<p>No garments available.</p>';
         return;
       }
-      const brands = [...new Set(garments.map(g => g.brand || 'Other'))];
+      const brandOrder = ['Luar', 'Ben Doctor', 'Masiah', 'Apparis', 'Petra Stellam'];
+      const rank = b => brandOrder.includes(b) ? brandOrder.indexOf(b) : brandOrder.length;
+      const brands = [...new Set(garments.map(g => g.brand || 'Other'))]
+        .sort((a, b) => rank(a) - rank(b));
       const brandLogos = {
         Apparis: '/images/Brand%20Logos/Apparis%20LOGO.png',
         'Ben Doctor': '/images/Brand%20Logos/Ben%20Doctor%20LOGO.png',
